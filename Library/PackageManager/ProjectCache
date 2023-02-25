@@ -6,8 +6,8 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638127722321569857
-    m_Hash: 1719789460
+      ticks: 638129510273330955
+    m_Hash: 2081676248
   m_LockFileStatus:
     m_FilePath: "D:/Study/Unity Projects/\u041F\u043E\u0432\u0442\u043E\u0440\u044F\u043B\u043A\u0438/AI
       Car/Packages/packages-lock.json"
@@ -15,8 +15,8 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638127722321629857
-    m_Hash: 1755400957
+      ticks: 638129510273340942
+    m_Hash: 2408981072
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
