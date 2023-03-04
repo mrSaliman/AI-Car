@@ -7,11 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/POLYGON city pack/Meshes,textures/props_FBX/Materials/props_FBX.mat
-  m_Name: props_FBX
-========
   m_Name: sport_car_1_body_reflective
->>>>>>>> e16e08f02e0bd690edc2044664f8af31ea93c11e:Assets/FlamingSands_Cars/sport_car_1/Materials/sport_car_1_body_reflective.mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
@@ -82,12 +78,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-<<<<<<<< HEAD:Assets/POLYGON city pack/Meshes,textures/props_FBX/Materials/props_FBX.mat
-    - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-========
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
->>>>>>>> e16e08f02e0bd690edc2044664f8af31ea93c11e:Assets/FlamingSands_Cars/sport_car_1/Materials/sport_car_1_body_reflective.mat
   m_BuildTextureStacks: []

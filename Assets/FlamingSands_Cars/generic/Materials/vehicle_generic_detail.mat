@@ -4,16 +4,10 @@
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
-<<<<<<<< HEAD:Assets/POLYGON city pack/Materials/Colors_buildings/A.mat
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: A
-========
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: vehicle_generic_detail
->>>>>>>> e16e08f02e0bd690edc2044664f8af31ea93c11e:Assets/FlamingSands_Cars/generic/Materials/vehicle_generic_detail.mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
