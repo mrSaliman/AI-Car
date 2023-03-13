@@ -130,37 +130,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 886153980526450681, guid: 3537b86115db8134594585500d31b117, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5070209807830741046, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_Name
       value: sport_car_1_custom
       objectReference: {fileID: 0}
+    - target: {fileID: 5070209807830741046, guid: 3537b86115db8134594585500d31b117, type: 3}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.24
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.545
+      value: 0.134
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.67428505
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 5070209807830916536, guid: 3537b86115db8134594585500d31b117, type: 3}
       propertyPath: m_LocalRotation.w
@@ -201,7 +209,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7967162136711253259, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967162136711253259, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967162136711253259, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7967162136711253259, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -245,7 +261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227555636251652911, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
       propertyPath: m_Name
-      value: EntryRoad1
+      value: StartRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2b139b4f9c478741a7a14a4bab41a93, type: 3}
@@ -279,7 +295,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1382925206
 MonoBehaviour:
@@ -311,8 +327,10 @@ MonoBehaviour:
   - {fileID: 6986886031169890069, guid: b8391e940b7d2b8489f0f6c294cd9cfd, type: 3}
   - {fileID: 2315023897684583098, guid: e7ca55a7d7088424f8100dd7ae27fd4b, type: 3}
   - {fileID: 6707621719939022036, guid: 2bb6641095fa6414cad76b49379c6a0f, type: 3}
-  closedRoom: {fileID: 198004416664550328, guid: 7cf2b293b96555a48ace422676055a2d, type: 3}
+  closedRoom: {fileID: 1627692469287379292, guid: 7cf2b293b96555a48ace422676055a2d, type: 3}
+  car: {fileID: 1924688137}
   rooms: []
+  tileScale: {x: 2, y: 1, z: 2}
   waitTime: 2
   boss: {fileID: 8908845324076299038, guid: 704aac4a0513ec045a3bff261b46c905, type: 3}
 --- !u!1 &1416250710
@@ -399,3 +417,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1924688137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5070209807830741046, guid: 3537b86115db8134594585500d31b117, type: 3}
+  m_PrefabInstance: {fileID: 1002803852}
+  m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RoomSpawner : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class RoomSpawner : MonoBehaviour
     private void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        ChangeTileScale();
         Invoke("Spawn", 0.1f);
     }
 
@@ -25,29 +28,24 @@ public class RoomSpawner : MonoBehaviour
     {
         if(spawned == false)
         {
-            if (openingDirection == 1)
+            switch (openingDirection)
             {
-                // Need to spawn a room with a BOTTOM door
-                rand = Random.Range(0, templates.bottomRooms.Length);
-                Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 2)
-            {
-                // Need to spawn a room with a TOP door
-                rand = Random.Range(0, templates.topRooms.Length);
-                Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 3)
-            {
-                // Need to spawn a room with a LEFT door
-                rand = Random.Range(0, templates.leftRooms.Length);
-                Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
-            }
-            else if (openingDirection == 4)
-            {
-                // Need to spawn a room with a RIGHT door
-                rand = Random.Range(0, templates.rightRooms.Length);
-                Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                case 1:
+                    rand = Random.Range(0, templates.bottomRooms.Length);
+                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+                    break;
+                case 2:
+                    rand = Random.Range(0, templates.topRooms.Length);
+                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+                    break;
+                case 3:
+                    rand = Random.Range(0, templates.leftRooms.Length);
+                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+                    break;
+                case 4:
+                    rand = Random.Range(0, templates.rightRooms.Length);
+                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                    break;
             }
             spawned = true;
         }
@@ -59,16 +57,21 @@ public class RoomSpawner : MonoBehaviour
         {
             if(other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                try
-                {
-                    Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
-                }
-                catch
-                {
-
-                }
+                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }
+    }
+
+    private void ChangeTileScale()
+    {
+        for(int i = 0; i < templates.leftRooms.Length; i++)
+            templates.leftRooms[i].transform.localScale = templates.tileScale;
+        for(int i = 0; i < templates.rightRooms.Length; i++)
+            templates.rightRooms[i].transform.localScale = templates.tileScale;
+        for(int i = 0; i < templates.bottomRooms.Length; i++)
+            templates.bottomRooms[i].transform.localScale = templates.tileScale;
+        for (int i = 0; i < templates.topRooms.Length; i++)
+            templates.topRooms[i].transform.localScale = templates.tileScale;
     }
 }

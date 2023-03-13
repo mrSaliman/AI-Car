@@ -10,12 +10,14 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] rightRooms;
 
     public GameObject closedRoom;
-
+    public GameObject car;
     public List<GameObject> rooms;
-
+    public Vector3 tileScale;
     public float waitTime;
     private bool spawnBoss;
     public GameObject boss;
+
+
     private void Update()
     {
         if(waitTime <= 0 && spawnBoss == false)

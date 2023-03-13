@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
+    RoomTemplates roomTemplates;
     public void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if(other.gameObject != roomTemplates.car)
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
