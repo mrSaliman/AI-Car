@@ -332,7 +332,7 @@ MonoBehaviour:
   rooms: []
   tileScale: {x: 2, y: 1, z: 2}
   waitTime: 2
-  boss: {fileID: 8908845324076299038, guid: 704aac4a0513ec045a3bff261b46c905, type: 3}
+  finish: {fileID: 8908845324076299038, guid: 704aac4a0513ec045a3bff261b46c905, type: 3}
 --- !u!1 &1416250710
 GameObject:
   m_ObjectHideFlags: 0

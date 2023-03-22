@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ReloadScene : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Car"))
+        if (other.CompareTag("Car"))
         {
             SceneManager.LoadScene("MapGeneration");
         }

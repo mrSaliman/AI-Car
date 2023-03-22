@@ -20,12 +20,13 @@ public class RoomSpawner : MonoBehaviour
     private void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        Invoke("Spawn", 0.1f);
+
+        Invoke("Spawn", 0.3201f);
     }
 
     private void Spawn()
     {
-        if(spawned == false)
+        if (spawned == false)
         {
             switch (openingDirection)
             {
@@ -61,9 +62,10 @@ public class RoomSpawner : MonoBehaviour
     {
         if (other.CompareTag("SpawnPoint"))
         {
-            if(other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
                 Debug.Log($"{gameObject} and {templates}");
+                templates.closedRoom.transform.localScale = templates.tileScale;
                 Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);

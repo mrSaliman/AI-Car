@@ -14,16 +14,17 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> rooms;
     public Vector3 tileScale;
     public float waitTime;
-    private bool spawnBoss;
-    public GameObject boss;
+    private bool spawFinish;
+    public GameObject finish;
 
 
     private void Update()
     {
-        if(waitTime <= 0 && spawnBoss == false)
+        if(waitTime <= 0 && spawFinish == false)
         {
-            Instantiate(boss, rooms[rooms.Count-1].transform.position, Quaternion.identity);
-            spawnBoss = true;
+            Instantiate(finish, rooms[rooms.Count-1].transform.position, Quaternion.identity);
+            spawFinish = true;
+            waitTime = 0;
         } 
         else
         {
