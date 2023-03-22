@@ -7,8 +7,9 @@ public class Destroyer : MonoBehaviour
     RoomTemplates roomTemplates;
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject != roomTemplates.car)
-        {
+        if(!other.CompareTag("Car"))
+        {   
+            //Debug.Log(other.gameObject);
             Destroy(other.gameObject);
         }
     }

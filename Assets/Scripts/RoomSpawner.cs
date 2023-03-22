@@ -12,7 +12,7 @@ public class RoomSpawner : MonoBehaviour
     // 3 -> need left door
     // 4 -> need right door
 
-
+    [SerializeField]
     private RoomTemplates templates;
     private int rand;
     private bool spawned = false;
@@ -57,6 +57,7 @@ public class RoomSpawner : MonoBehaviour
         {
             if(other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
+                Debug.Log($"{gameObject} and {templates}");
                 Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
