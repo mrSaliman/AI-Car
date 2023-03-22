@@ -20,7 +20,6 @@ public class RoomSpawner : MonoBehaviour
     private void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        ChangeTileScale();
         Invoke("Spawn", 0.1f);
     }
 
@@ -32,19 +31,26 @@ public class RoomSpawner : MonoBehaviour
             {
                 case 1:
                     rand = Random.Range(0, templates.bottomRooms.Length);
-                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+                    GameObject bottomRoom = templates.bottomRooms[rand];
+                    bottomRoom.transform.localScale = templates.tileScale;
+                    Instantiate(bottomRoom, transform.position, bottomRoom.transform.rotation);
                     break;
                 case 2:
                     rand = Random.Range(0, templates.topRooms.Length);
-                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+                    GameObject topRoom = templates.topRooms[rand];
+                    topRoom.transform.localScale = templates.tileScale;
+                    Instantiate(topRoom, transform.position, topRoom.transform.rotation);
                     break;
                 case 3:
                     rand = Random.Range(0, templates.leftRooms.Length);
-                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+                    GameObject leftRoom = templates.leftRooms[rand];
+                    leftRoom.transform.localScale = templates.tileScale;
+                    Instantiate(leftRoom, transform.position, leftRoom.transform.rotation);
                     break;
                 case 4:
                     rand = Random.Range(0, templates.rightRooms.Length);
-                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                    GameObject rightRoom = templates.rightRooms[rand];
+                    Instantiate(rightRoom, transform.position, rightRoom.transform.rotation);
                     break;
             }
             spawned = true;
@@ -61,17 +67,5 @@ public class RoomSpawner : MonoBehaviour
             }
             Destroy(gameObject);
         }
-    }
-
-    private void ChangeTileScale()
-    {
-        for(int i = 0; i < templates.leftRooms.Length; i++)
-            templates.leftRooms[i].transform.localScale = templates.tileScale;
-        for(int i = 0; i < templates.rightRooms.Length; i++)
-            templates.rightRooms[i].transform.localScale = templates.tileScale;
-        for(int i = 0; i < templates.bottomRooms.Length; i++)
-            templates.bottomRooms[i].transform.localScale = templates.tileScale;
-        for (int i = 0; i < templates.topRooms.Length; i++)
-            templates.topRooms[i].transform.localScale = templates.tileScale;
     }
 }
