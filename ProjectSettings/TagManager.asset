@@ -7,6 +7,10 @@ TagManager:
   - SpawnPoint
   - Rooms
   - Car
+  - Start Room
+  - Closed Room
+  - Check Point
+  - Border
   layers:
   - Default
   - TransparentFX

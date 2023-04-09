@@ -12,7 +12,6 @@ public class RoomSpawner : MonoBehaviour
     // 3 -> need left door
     // 4 -> need right door
 
-    [SerializeField]
     private RoomTemplates templates;
     private int rand;
     private bool spawned = false;
@@ -20,8 +19,7 @@ public class RoomSpawner : MonoBehaviour
     private void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-
-        Invoke("Spawn", 0.3201f);
+        Invoke("Spawn", 0.33f);
     }
 
     private void Spawn()
@@ -61,14 +59,6 @@ public class RoomSpawner : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("SpawnPoint"))
-        {
-            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
-            {
-                Debug.Log($"{gameObject} and {templates}");
-                templates.closedRoom.transform.localScale = templates.tileScale;
-                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
-            }
             Destroy(gameObject);
-        }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,27 +7,23 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] topRooms;
     public GameObject[] leftRooms;
     public GameObject[] rightRooms;
-
-    public GameObject closedRoom;
+    public GameObject finish;
     public GameObject car;
+
     public List<GameObject> rooms;
     public Vector3 tileScale;
-    public float waitTime;
-    private bool spawFinish;
-    public GameObject finish;
+    private bool spawFinish = false;
+    private float roomSpawnTime = 5;
 
 
     private void Update()
     {
-        if(waitTime <= 0 && spawFinish == false)
+        if (roomSpawnTime <= 0 && spawFinish == false)
         {
-            Instantiate(finish, rooms[rooms.Count-1].transform.position, Quaternion.identity);
+            Instantiate(finish, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
             spawFinish = true;
-            waitTime = 0;
-        } 
-        else
-        {
-            waitTime -= Time.deltaTime;
         }
+        else
+            roomSpawnTime -= Time.deltaTime;
     }
 }

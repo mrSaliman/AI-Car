@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ReloadScene : MonoBehaviour
+public class DropCarTest : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if (other.CompareTag("Car"))
-        {
+        if (GameObject.FindGameObjectWithTag("Car").transform.position.y < -1)
             SceneManager.LoadScene("MapGeneration");
-        }
     }
 }
