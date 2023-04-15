@@ -11,6 +11,9 @@ TagManager:
   - Closed Room
   - Check Point
   - Border
+  - Road
+  - Destroyer
+  - Roads
   layers:
   - Default
   - TransparentFX

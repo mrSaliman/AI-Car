@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RoomSpawner : MonoBehaviour
 {
@@ -18,8 +16,9 @@ public class RoomSpawner : MonoBehaviour
 
     private void Start()
     {
-        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        Invoke("Spawn", 0.33f);
+        templates = GameObject.FindGameObjectWithTag("Roads").GetComponent<RoomTemplates>();
+        SetTileScale();   
+        Invoke("Spawn", 0.05f);
     }
 
     private void Spawn()
@@ -29,27 +28,16 @@ public class RoomSpawner : MonoBehaviour
             switch (openingDirection)
             {
                 case 1:
-                    rand = Random.Range(0, templates.bottomRooms.Length);
-                    GameObject bottomRoom = templates.bottomRooms[rand];
-                    bottomRoom.transform.localScale = templates.tileScale;
-                    Instantiate(bottomRoom, transform.position, bottomRoom.transform.rotation);
+                    spawnRoom(templates.bottomRoads, 1);
                     break;
                 case 2:
-                    rand = Random.Range(0, templates.topRooms.Length);
-                    GameObject topRoom = templates.topRooms[rand];
-                    topRoom.transform.localScale = templates.tileScale;
-                    Instantiate(topRoom, transform.position, topRoom.transform.rotation);
+                    spawnRoom(templates.topRoads, 2);
                     break;
                 case 3:
-                    rand = Random.Range(0, templates.leftRooms.Length);
-                    GameObject leftRoom = templates.leftRooms[rand];
-                    leftRoom.transform.localScale = templates.tileScale;
-                    Instantiate(leftRoom, transform.position, leftRoom.transform.rotation);
+                    spawnRoom(templates.leftRoads, 3);
                     break;
                 case 4:
-                    rand = Random.Range(0, templates.rightRooms.Length);
-                    GameObject rightRoom = templates.rightRooms[rand];
-                    Instantiate(rightRoom, transform.position, rightRoom.transform.rotation);
+                    spawnRoom(templates.rightRoads, 4);
                     break;
             }
             spawned = true;
@@ -60,5 +48,26 @@ public class RoomSpawner : MonoBehaviour
     {
         if (other.CompareTag("SpawnPoint"))
             Destroy(gameObject);
+    }
+
+    private void SetTileScale()
+    {
+        for (int i = 0; i < templates.topRoads.Length; i++)
+            templates.topRoads[i].transform.localScale = templates.tileScale;
+        for (int i = 0; i < templates.bottomRoads.Length; i++)
+            templates.bottomRoads[i].transform.localScale = templates.tileScale;
+        for (int i = 0; i < templates.rightRoads.Length; i++)
+            templates.rightRoads[i].transform.localScale = templates.tileScale;
+        for (int i = 0; i < templates.leftRoads.Length; i++)
+            templates.leftRoads[i].transform.localScale = templates.tileScale;
+    }
+
+
+    private void spawnRoom(GameObject[] roads, int direction)
+    {
+        rand = Random.Range(0, roads.Length);
+        GameObject road = roads[rand];
+        road.GetComponent<AddRoom>().previousRoad = gameObject.transform.parent.gameObject;
+        Instantiate(road, transform.position, road.transform.rotation);
     }
 }
