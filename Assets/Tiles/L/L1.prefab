@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5257438265605362739}
   - component: {fileID: 6611332065206304358}
   - component: {fileID: 6893666692493736735}
+  - component: {fileID: 7689069764214164805}
   m_Layer: 0
   m_Name: Check Point (1)
   m_TagString: Check Point
@@ -114,6 +115,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7689069764214164805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640713145584895454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752d4b78ad3fa24c8172b3fe4903039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Direction: 0
 --- !u!1 &2500646943765877929
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +292,7 @@ GameObject:
   - component: {fileID: 3914216035691527115}
   - component: {fileID: 4603887684874401654}
   - component: {fileID: 6699924104224512142}
+  - component: {fileID: 1750534314766212657}
   m_Layer: 0
   m_Name: Check Point (2)
   m_TagString: Check Point
@@ -379,6 +394,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1750534314766212657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006946854600542902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a752d4b78ad3fa24c8172b3fe4903039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Direction: 4
 --- !u!1 &5724332390276978226
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +461,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousRoad: {fileID: 0}
-  directionForDelete: 
 --- !u!1001 &1787967875070210397
 PrefabInstance:
   m_ObjectHideFlags: 0

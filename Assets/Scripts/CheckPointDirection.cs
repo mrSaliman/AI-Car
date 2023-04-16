@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CheckPointCollisionCount : MonoBehaviour
+public class CheckPointDirection : MonoBehaviour
 {
     public int Direction;
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RoomTemplates : MonoBehaviour
 {
@@ -70,6 +72,65 @@ public class RoomTemplates : MonoBehaviour
                         Destroy(borders[j].gameObject);
                     }
                 }
+            }
+        }
+
+        for(int i = 1; i < rightWay.Count-2; i++)
+        {
+            if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).Count() > 3)
+            {
+                List<int> whiteListOfCheckPoints = new List<int>() { 0 };
+                float minDistanceForPrev = float.MaxValue, minDistanceForNext = float.MaxValue;
+                int checkPointIdWithMinDistanceForPrev = 0, checkPointIdWithMinDistanceForNext = 0;
+                var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+                for (int j = 0; j < checkPoints.Count; j++)
+                {
+                    float distance = Vector3.Distance(checkPoints[j].position, rightWay[i - 1].transform.position);
+                    if (distance < minDistanceForPrev)
+                    {
+                        minDistanceForPrev = distance;
+                        checkPointIdWithMinDistanceForPrev = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
+                    }
+
+                    distance = Vector3.Distance(checkPoints[j].position, rightWay[i + 1].transform.position);
+                    if (distance < minDistanceForNext)
+                    {
+                        minDistanceForNext= distance;
+                        checkPointIdWithMinDistanceForNext= checkPoints[j].GetComponent<CheckPointDirection>().Direction;
+                    }
+                }
+                whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForNext);
+                whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForPrev);
+               
+                for(int j = 0; j < checkPoints.Count; j++)
+                {
+                    if (!whiteListOfCheckPoints.Contains(checkPoints[j].GetComponent<CheckPointDirection>().Direction))
+                    {
+                        Destroy(checkPoints[j].gameObject);
+                    }
+                }
+            }
+        }
+
+        List<int> whiteList = new List<int>() { 0 };
+        float minDistanceForFirst = float.MaxValue;
+        int checkPointIdWithMinDistanceForFirst = 0;
+        var checkPointsForFirstRoad = rightWay[rightWay.Count-2].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+        for(int i = 0; i < checkPointsForFirstRoad.Count; i++)
+        {
+            float distanceForFirst = Vector3.Distance(checkPointsForFirstRoad[i].position, rightWay[rightWay.Count - 3].transform.position);
+            if (distanceForFirst < minDistanceForFirst)
+            {
+                minDistanceForFirst = distanceForFirst;
+                checkPointIdWithMinDistanceForFirst = checkPointsForFirstRoad[i].GetComponent<CheckPointDirection>().Direction;
+            }   
+        }
+        whiteList.Add(checkPointIdWithMinDistanceForFirst);
+        for (int i = 0; i < checkPointsForFirstRoad.Count; i++)
+        {
+            if (!whiteList.Contains(checkPointsForFirstRoad[i].GetComponent<CheckPointDirection>().Direction))
+            {
+                Destroy(checkPointsForFirstRoad[i].gameObject);
             }
         }
     }
