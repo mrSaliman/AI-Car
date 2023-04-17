@@ -18,7 +18,7 @@ public class RoomSpawner : MonoBehaviour
     {
         templates = GameObject.FindGameObjectWithTag("Roads").GetComponent<RoomTemplates>();
         SetTileScale();   
-        Invoke("Spawn", 0.05f);
+        Invoke("Spawn", 0.03f);
     }
 
     private void Spawn()

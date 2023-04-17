@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> roads;
     public Vector3 tileScale;
     private bool spawFinish = false;
-    private float roadSpawnTime = 5f;
+    private float roadSpawnTime = 10f;
 
 
     private void Update()
@@ -27,8 +28,8 @@ public class RoomTemplates : MonoBehaviour
             DeleteBorders();
             GenerateRightWay();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
+            Invoke("SpawnCar", 0.1f);
             spawFinish = true;
-            Instantiate(car, new Vector3(0, 0, 0), Quaternion.identity);
         }
         else
             roadSpawnTime -= Time.deltaTime;
@@ -134,5 +135,29 @@ public class RoomTemplates : MonoBehaviour
                 Destroy(checkPointsForFirstRoad[i].gameObject);
             }
         }
+    }
+
+
+    private float GetCarRotation()
+    {
+        float rotation = 0;
+        var checkPoints = roads[0]
+            .GetComponentsInChildren<Transform>()
+            .Where(e => e.CompareTag("Check Point"))
+            .Select(e => e.GetComponent<CheckPointDirection>().Direction)
+            .ToList();
+        
+        if (checkPoints.Contains(1))
+            rotation += 90;
+        else if (checkPoints.Contains(2))
+            rotation += 270;
+        else if (checkPoints.Contains(3))
+            rotation += 180;
+        return rotation;
+    }
+
+    private void SpawnCar()
+    {
+        Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
     }
 }
