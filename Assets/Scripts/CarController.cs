@@ -28,6 +28,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+
     private void FixedUpdate()
     {
         GetInput();

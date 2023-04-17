@@ -28,6 +28,7 @@ public class RoomTemplates : MonoBehaviour
             GenerateRightWay();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
             spawFinish = true;
+            Instantiate(car, new Vector3(0, 0, 0), Quaternion.identity);
         }
         else
             roadSpawnTime -= Time.deltaTime;
