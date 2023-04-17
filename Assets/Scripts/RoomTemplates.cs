@@ -18,12 +18,16 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> roads;
     public Vector3 tileScale;
     private bool spawFinish = false;
-    private float roadSpawnTime = 10f;
+    private int countOfRoads = 0;
 
-
-    private void Update()
+    private void Start()
     {
-        if (roadSpawnTime <= 0 && spawFinish == false)
+        InvokeRepeating("EndSpawning", 0f, 1f);
+    }
+
+    private void EndSpawning()
+    {
+        if (spawFinish == false && countOfRoads == roads.Count)
         {
             DeleteBorders();
             GenerateRightWay();
@@ -32,7 +36,8 @@ public class RoomTemplates : MonoBehaviour
             spawFinish = true;
         }
         else
-            roadSpawnTime -= Time.deltaTime;
+            countOfRoads = roads.Count;
+            
     }
 
 
