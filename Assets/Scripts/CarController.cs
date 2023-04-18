@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
+    private const float wheelBase = 2.574f;
 
     private float horizontalInput;
     private float verticalInput;
@@ -25,12 +27,15 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [SerializeField] private Rigidbody rb;
+
 
     private void FixedUpdate()
     {
         GetInput();
         HandleMotor();
         HandleSteering();
+        AddDownForce();
         UpdateWheels();
     }
 
@@ -40,6 +45,27 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis(HORIZONTAL);
         verticalInput = Input.GetAxis(VERTICAL);
         isBreaking = Input.GetButton("Jump");
+    }
+
+    private void AddDownForce()
+    {
+        float downforce = rb.velocity.sqrMagnitude * 1.225f * 3.6f;
+        rb.AddForce(downforce * -transform.up);
+        UpdateWheelsSlips(downforce);
+    }
+
+    private void UpdateWheelsSlips(float downforce)
+    {
+        UpdateSingleWheelSlips(frontRightWheelCollider, downforce);
+        UpdateSingleWheelSlips(frontLeftWheelCollider, downforce);
+    }
+
+    private void UpdateSingleWheelSlips(WheelCollider wheelCollider, float downforce) 
+    {
+        var sf = wheelCollider.sidewaysFriction;
+        sf.extremumSlip = rearLeftWheelCollider.sidewaysFriction.extremumSlip * (1 + downforce / rb.mass);
+        sf.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / rb.mass);
+        wheelCollider.sidewaysFriction = sf;
     }
 
     private void HandleMotor()
@@ -54,15 +80,13 @@ public class CarController : MonoBehaviour
 
     private void ApplyBreaking()
     {
-        /*frontRightWheelCollider.brakeTorque = currentbreakForce;
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;*/
         rearLeftWheelCollider.brakeTorque = currentbreakForce;
         rearRightWheelCollider.brakeTorque = currentbreakForce;
     }
 
     private void HandleSteering()
     {
-        currentSteerAngle = maxSteerAngle * horizontalInput;
+        currentSteerAngle = maxSteerAngle * Math.Max(Math.Min(10.0f / rb.velocity.magnitude, 1), 0.1f) * horizontalInput;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
