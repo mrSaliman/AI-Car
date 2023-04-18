@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RoomTemplates : MonoBehaviour
 {
@@ -112,9 +108,7 @@ public class RoomTemplates : MonoBehaviour
                 for(int j = 0; j < checkPoints.Count; j++)
                 {
                     if (!whiteListOfCheckPoints.Contains(checkPoints[j].GetComponent<CheckPointDirection>().Direction))
-                    {
                         Destroy(checkPoints[j].gameObject);
-                    }
                 }
             }
         }
@@ -136,9 +130,7 @@ public class RoomTemplates : MonoBehaviour
         for (int i = 0; i < checkPointsForFirstRoad.Count; i++)
         {
             if (!whiteList.Contains(checkPointsForFirstRoad[i].GetComponent<CheckPointDirection>().Direction))
-            {
                 Destroy(checkPointsForFirstRoad[i].gameObject);
-            }
         }
     }
 
@@ -161,8 +153,5 @@ public class RoomTemplates : MonoBehaviour
         return rotation;
     }
 
-    private void SpawnCar()
-    {
-        Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
-    }
+    private void SpawnCar() => Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
 }

@@ -1,15 +1,8 @@
-using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
     public int openingDirection;
-    // 1 -> need bottom door
-    // 2 -> need top door
-    // 3 -> need left door
-    // 4 -> need right door
-
     private RoomTemplates templates;
     private int rand;
     private bool spawned = false;
