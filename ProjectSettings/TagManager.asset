@@ -14,6 +14,9 @@ TagManager:
   - Road
   - Destroyer
   - Roads
+  - Forward CheckPoint
+  - Right CheckPoint
+  - Left CheckPoint
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - CheckPoint
   - 
   - 
   - 

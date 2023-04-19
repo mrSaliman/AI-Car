@@ -61,15 +61,15 @@ public class RoomTemplates : MonoBehaviour
         
         roads.Where(e => !rightWay.Contains(e))
             .Select(e => e.GetComponentsInChildren<Transform>()).ToList()
-            .ForEach(e => e.Where(k => k.CompareTag("Check Point")).ToList()
+            .ForEach(e => e.Where(k => k.CompareTag("Forward CheckPoint")).ToList()
             .ForEach(k => Destroy(k.gameObject)));
 
         for(int i = 1; i < rightWay.Count-2; i++)
         {
-            if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).Count() > 3)
+            if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).Count() > 3)
             {
                 List<int> whiteListOfCheckPoints = new List<int>() { 0 };
-                var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+                var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
                 float minDistanceForPrev = float.MaxValue;
                 float minDistanceForNext = float.MaxValue;
                 int checkPointIdWithMinDistanceForPrev = 0;
@@ -108,7 +108,7 @@ public class RoomTemplates : MonoBehaviour
     {
         float minDistance = float.MaxValue;
         int checkPointWithMinDistance = 0;
-        var checkPoints = rightWay[actul].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+        var checkPoints = rightWay[actul].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
         
         for (int i = 0; i < checkPoints.Count; i++)
         {
@@ -129,7 +129,7 @@ public class RoomTemplates : MonoBehaviour
         float rotation = 0;
         var checkPoints = roads[0]
             .GetComponentsInChildren<Transform>()
-            .Where(e => e.CompareTag("Check Point"))
+            .Where(e => e.CompareTag("Forward CheckPoint"))
             .Select(e => e.GetComponent<CheckPointDirection>().Direction)
             .ToList();
         
@@ -162,7 +162,7 @@ public class RoomTemplates : MonoBehaviour
 
         for(int i = 0; i < rightWay.Count-1; i++)
         {
-            var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+            var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
             if(checkPoints.Count > 2)
             {
                 for (int j = 0; j < checkPoints.Count; j++)
