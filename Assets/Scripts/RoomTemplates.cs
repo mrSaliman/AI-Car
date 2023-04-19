@@ -170,7 +170,6 @@ public class RoomTemplates : MonoBehaviour
                     if (checkPoints[j].GetComponent<CheckPointDirection>().Direction == 0)
                     {
                         centerCheckPoints.Add(checkPoints[j].gameObject);
-                        print(rightWay[i]);
                     }
                 }
             }
