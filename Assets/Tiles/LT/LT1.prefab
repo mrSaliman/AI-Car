@@ -452,9 +452,8 @@ GameObject:
   - component: {fileID: 4137146886012063547}
   - component: {fileID: 8315036974913699658}
   - component: {fileID: 3941492864280545818}
-  - component: {fileID: 6380841939277790171}
   - component: {fileID: 5569011415364468621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Check Point (3)
   m_TagString: Check Point
   m_Icon: {fileID: 0}
@@ -539,22 +538,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6380841939277790171
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6636034298229183016}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5569011415364468621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,9 +661,8 @@ GameObject:
   - component: {fileID: 7730120791994115247}
   - component: {fileID: 6736938748317466292}
   - component: {fileID: 6567189904721510779}
-  - component: {fileID: 3275697677277734378}
   - component: {fileID: 8506790024811219833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Check Point (2)
   m_TagString: Check Point
   m_Icon: {fileID: 0}
@@ -765,22 +747,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3275697677277734378
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7548152606135690605}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &8506790024811219833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,9 +772,8 @@ GameObject:
   - component: {fileID: 5511056378810735919}
   - component: {fileID: 2309445508747768975}
   - component: {fileID: 6683991185552696131}
-  - component: {fileID: 3358837932054546525}
   - component: {fileID: 5877051503109916178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Check Point (1)
   m_TagString: Check Point
   m_Icon: {fileID: 0}
@@ -893,22 +858,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3358837932054546525
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7714411232772659578}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5877051503109916178
 MonoBehaviour:
   m_ObjectHideFlags: 0

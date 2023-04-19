@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -27,6 +28,7 @@ public class RoomTemplates : MonoBehaviour
         {
             DeleteBorders();
             GenerateRightWay();
+            GetCenterCheckPoints();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
             Invoke("SpawnCar", 0.1f);
             spawFinish = true;
@@ -55,13 +57,7 @@ public class RoomTemplates : MonoBehaviour
 
     private void GenerateRightWay()
     {
-        List<GameObject> rightWay = new List<GameObject>() { roads[roads.Count - 1] };
-        GameObject tmp;
-        do
-        {
-           tmp = rightWay[rightWay.Count - 1].GetComponent<AddRoom>().previousRoad;
-           rightWay.Add(tmp);
-        } while (tmp != null);
+        var rightWay = GetRightWay();
         
         roads.Where(e => !rightWay.Contains(e))
             .Select(e => e.GetComponentsInChildren<Transform>()).ToList()
@@ -146,5 +142,64 @@ public class RoomTemplates : MonoBehaviour
         return rotation;
     }
 
-    private void SpawnCar() => Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
+
+    private List<GameObject> GetRightWay() 
+    {
+        var rightWay = new List<GameObject>() { roads[roads.Count - 1] };
+        GameObject tmp;
+        do
+        {
+            tmp = rightWay[rightWay.Count - 1].GetComponent<AddRoom>().previousRoad;
+            rightWay.Add(tmp);
+        } while (tmp != null);
+        return rightWay;
+    } 
+    
+    private void GetCenterCheckPoints()
+    {
+        var rightWay = GetRightWay();
+        var centerCheckPoints = new List<GameObject>();
+
+        for(int i = 0; i < rightWay.Count-1; i++)
+        {
+            var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+            if(checkPoints.Count > 2)
+            {
+                for (int j = 0; j < checkPoints.Count; j++)
+                {
+                    if (checkPoints[j].GetComponent<CheckPointDirection>().Direction == 0)
+                    {
+                        centerCheckPoints.Add(checkPoints[j].gameObject);
+                        print(rightWay[i]);
+                    }
+                }
+            }
+        }
+        
+        for(int i = 0; i < centerCheckPoints.Count - 2; i++)
+        {
+            string a = GetRotationTag(centerCheckPoints[i].transform.position, centerCheckPoints[i + 1].transform.position, centerCheckPoints[i + 2].transform.position);
+            centerCheckPoints[i+1].tag = a;
+        }
+    }
+
+    
+    private string GetRotationTag(Vector3 a, Vector3 b, Vector3 c)
+    {
+        var ab = a - b;
+        var ac = a - c;
+        float angle = Vector3.SignedAngle(ab, ac, b);
+        if (angle < -40.0f)
+            return "Right CheckPoint";
+        else if (angle > 40.0f)
+            return "Left CheckPoint";
+        else
+            return "Forward CheckPoint";
+    }
+
+
+    private void SpawnCar()
+    {
+        Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
+    }
 }

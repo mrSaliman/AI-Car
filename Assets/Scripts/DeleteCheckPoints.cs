@@ -4,7 +4,7 @@ public class DeleteCheckPoints : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Check Point"))
+        if (other.gameObject.layer == 6)
             Destroy(other.gameObject);
     }
 }
