@@ -57,10 +57,10 @@ public class CarController : MonoBehaviour
 
             Ray ray = new(pos, angle);
 
-            Debug.DrawRay(pos, angle * 10, Color.red);
+            Debug.DrawRay(pos, angle * 15, Color.red);
 
             RaycastHit hitData;
-            if (Physics.Raycast(ray, out hitData, 10))
+            if (Physics.Raycast(ray, out hitData, 15, 192))
             {
                 print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
             }
