@@ -29,9 +29,15 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+    }
 
     private void FixedUpdate()
     {
+        FireRays();
         GetInput();
         HandleMotor();
         HandleSteering();
@@ -39,6 +45,28 @@ public class CarController : MonoBehaviour
         UpdateWheels();
     }
 
+    private void FireRays()
+    {
+        for (int i = -90; i <= 90; i += 18)
+        {
+            Vector3 angle = transform.forward;
+            var pos = transform.position;
+
+            angle = Quaternion.AngleAxis(i, Vector3.up) * angle;
+            pos.y += 0.4f;
+
+            Ray ray = new(pos, angle);
+
+            Debug.DrawRay(pos, angle * 10, Color.red);
+
+            RaycastHit hitData;
+            if (Physics.Raycast(ray, out hitData, 10))
+            {
+                print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
+            }
+
+        }
+    }
 
     private void GetInput()
     {

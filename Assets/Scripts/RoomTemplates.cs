@@ -28,7 +28,7 @@ public class RoomTemplates : MonoBehaviour
         {
             DeleteBorders();
             GenerateRightWay();
-            GetCenterCheckPoints();
+            SetCenterCheckPoints();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
             Invoke("SpawnCar", 0.1f);
             spawFinish = true;
@@ -155,7 +155,7 @@ public class RoomTemplates : MonoBehaviour
         return rightWay;
     } 
     
-    private void GetCenterCheckPoints()
+    private void SetCenterCheckPoints()
     {
         var rightWay = GetRightWay();
         var centerCheckPoints = new List<GameObject>();
@@ -170,7 +170,6 @@ public class RoomTemplates : MonoBehaviour
                     if (checkPoints[j].GetComponent<CheckPointDirection>().Direction == 0)
                     {
                         centerCheckPoints.Add(checkPoints[j].gameObject);
-                        print(rightWay[i]);
                     }
                 }
             }
