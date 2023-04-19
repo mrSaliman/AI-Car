@@ -63,29 +63,22 @@ public class RoomTemplates : MonoBehaviour
            rightWay.Add(tmp);
         } while (tmp != null);
         
-        for(int i = 0; i < roads.Count; i++)
-        {
-            if (!rightWay.Contains(roads[i]))
-            {
-                Transform[] borders = roads[i].GetComponentsInChildren<Transform>();
-                for (int j = 0; j < borders.Length; j++)
-                {
-                    if (borders[j].CompareTag("Check Point"))
-                    {
-                        Destroy(borders[j].gameObject);
-                    }
-                }
-            }
-        }
+        roads.Where(e => !rightWay.Contains(e))
+            .Select(e => e.GetComponentsInChildren<Transform>()).ToList()
+            .ForEach(e => e.Where(k => k.CompareTag("Check Point")).ToList()
+            .ForEach(k => Destroy(k.gameObject)));
 
         for(int i = 1; i < rightWay.Count-2; i++)
         {
             if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).Count() > 3)
             {
                 List<int> whiteListOfCheckPoints = new List<int>() { 0 };
-                float minDistanceForPrev = float.MaxValue, minDistanceForNext = float.MaxValue;
-                int checkPointIdWithMinDistanceForPrev = 0, checkPointIdWithMinDistanceForNext = 0;
                 var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+                float minDistanceForPrev = float.MaxValue;
+                float minDistanceForNext = float.MaxValue;
+                int checkPointIdWithMinDistanceForPrev = 0;
+                int checkPointIdWithMinDistanceForNext = 0;
+
                 for (int j = 0; j < checkPoints.Count; j++)
                 {
                     float distance = Vector3.Distance(checkPoints[j].position, rightWay[i - 1].transform.position);
@@ -104,36 +97,36 @@ public class RoomTemplates : MonoBehaviour
                 }
                 whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForNext);
                 whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForPrev);
-               
-                for(int j = 0; j < checkPoints.Count; j++)
-                {
-                    if (!whiteListOfCheckPoints.Contains(checkPoints[j].GetComponent<CheckPointDirection>().Direction))
-                        Destroy(checkPoints[j].gameObject);
-                }
+
+                checkPoints.Where(e => !whiteListOfCheckPoints.Contains(e.GetComponent<CheckPointDirection>().Direction)).ToList()
+                    .ForEach(e => Destroy(e.gameObject));
             }
         }
 
-        List<int> whiteList = new List<int>() { 0 };
-        float minDistanceForFirst = float.MaxValue;
-        int checkPointIdWithMinDistanceForFirst = 0;
-        var checkPointsForFirstRoad = rightWay[rightWay.Count-2].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
-        for(int i = 0; i < checkPointsForFirstRoad.Count; i++)
-        {
-            float distanceForFirst = Vector3.Distance(checkPointsForFirstRoad[i].position, rightWay[rightWay.Count - 3].transform.position);
-            if (distanceForFirst < minDistanceForFirst)
-            {
-                minDistanceForFirst = distanceForFirst;
-                checkPointIdWithMinDistanceForFirst = checkPointsForFirstRoad[i].GetComponent<CheckPointDirection>().Direction;
-            }   
-        }
-        whiteList.Add(checkPointIdWithMinDistanceForFirst);
-        for (int i = 0; i < checkPointsForFirstRoad.Count; i++)
-        {
-            if (!whiteList.Contains(checkPointsForFirstRoad[i].GetComponent<CheckPointDirection>().Direction))
-                Destroy(checkPointsForFirstRoad[i].gameObject);
-        }
+        DeleteFirstAndLastCheckPoints(rightWay.Count - 2, rightWay.Count - 3, rightWay);
+        DeleteFirstAndLastCheckPoints(0, 1, rightWay);
     }
 
+
+    private void DeleteFirstAndLastCheckPoints(int actul, int next, List<GameObject> rightWay)
+    {
+        float minDistance = float.MaxValue;
+        int checkPointWithMinDistance = 0;
+        var checkPoints = rightWay[actul].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Check Point")).ToList();
+        
+        for (int i = 0; i < checkPoints.Count; i++)
+        {
+            float distance = Vector3.Distance(checkPoints[i].position, rightWay[next].transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                checkPointWithMinDistance = checkPoints[i].GetComponent<CheckPointDirection>().Direction;
+            }
+        }
+
+        checkPoints.Where(e => e.GetComponent<CheckPointDirection>().Direction != checkPointWithMinDistance && e.GetComponent<CheckPointDirection>().Direction != 0).ToList()
+            .ForEach(e => Destroy(e.gameObject));
+    }
 
     private float GetCarRotation()
     {
