@@ -19,6 +19,7 @@ public class RoomTemplates : MonoBehaviour
 
     private void Start()
     {
+        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = false;
         InvokeRepeating("EndSpawning", 0f, 1f);
     }
 
@@ -31,6 +32,7 @@ public class RoomTemplates : MonoBehaviour
             SetCenterCheckPoints();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
             Invoke("SpawnCar", 0.1f);
+            Invoke("SetCameras", 0.01f);
             spawFinish = true;
         }
         else
@@ -200,5 +202,11 @@ public class RoomTemplates : MonoBehaviour
     private void SpawnCar()
     {
         Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
+    }
+
+    private void SetCameras()
+    {
+        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = true;
+        GameObject.FindGameObjectWithTag("LoadSceneCamera").GetComponent<Camera>().enabled = false;
     }
 }

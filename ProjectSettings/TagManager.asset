@@ -17,6 +17,8 @@ TagManager:
   - Forward CheckPoint
   - Right CheckPoint
   - Left CheckPoint
+  - LoadSceneCamera
+  - MiniMapCamera
   layers:
   - Default
   - TransparentFX
