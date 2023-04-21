@@ -32,7 +32,6 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
     }
 
     private void FixedUpdate()

@@ -19,6 +19,7 @@ TagManager:
   - Left CheckPoint
   - LoadSceneCamera
   - MiniMapCamera
+  - MiniMapRowImage
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Water
   - UI
   - CheckPoint
-  - 
+  - Border
   - 
   - 
   - 
