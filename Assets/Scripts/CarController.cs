@@ -5,7 +5,6 @@ public class CarController : MonoBehaviour
 {
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
-    private const float wheelBase = 2.574f;
 
     private float horizontalInput;
     private float verticalInput;
@@ -28,6 +27,16 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearRightWheelTransform;
 
     [SerializeField] private Rigidbody rb;
+
+    [SerializeField] private MeshRenderer mr;
+
+    private float CarMass
+    {
+        get 
+        {
+            return rb.mass;
+        }
+    }
 
     private void Start()
     {
@@ -77,7 +86,7 @@ public class CarController : MonoBehaviour
 
     private void AddDownForce()
     {
-        float downforce = rb.velocity.sqrMagnitude * 1.225f * 3.6f;
+        float downforce = 3.5f * rb.velocity.sqrMagnitude * 1.2754f * mr.bounds.size.x * mr.bounds.size.y / 2;
         rb.AddForce(downforce * -transform.up);
         UpdateWheelsSlips(downforce);
     }
@@ -91,8 +100,8 @@ public class CarController : MonoBehaviour
     private void UpdateSingleWheelSlips(WheelCollider wheelCollider, float downforce) 
     {
         var sf = wheelCollider.sidewaysFriction;
-        sf.extremumSlip = rearLeftWheelCollider.sidewaysFriction.extremumSlip * (1 + downforce / rb.mass);
-        sf.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / rb.mass);
+        sf.extremumSlip = rearLeftWheelCollider.sidewaysFriction.extremumSlip * (1 + downforce / CarMass);
+        sf.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / CarMass);
         wheelCollider.sidewaysFriction = sf;
     }
 
