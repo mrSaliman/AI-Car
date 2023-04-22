@@ -70,7 +70,7 @@ public class CarController : MonoBehaviour
             RaycastHit hitData;
             if (Physics.Raycast(ray, out hitData, 15, 192))
             {
-                print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
+                //print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
             }
 
         }
@@ -92,16 +92,16 @@ public class CarController : MonoBehaviour
 
     private void UpdateWheelsSlips(float downforce)
     {
-        UpdateSingleWheelSlips(frontRightWheelCollider, downforce);
-        UpdateSingleWheelSlips(frontLeftWheelCollider, downforce);
+        var temp = frontLeftWheelCollider.sidewaysFriction;
+        temp.extremumSlip = rearLeftWheelCollider.sidewaysFriction.extremumSlip * (1 + downforce / CarMass);
+        temp.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / CarMass);
+        frontRightWheelCollider.sidewaysFriction = temp;
+        frontLeftWheelCollider.sidewaysFriction = temp;
     }
 
     private void UpdateSingleWheelSlips(WheelCollider wheelCollider, float downforce) 
     {
-        var sf = wheelCollider.sidewaysFriction;
-        sf.extremumSlip = rearLeftWheelCollider.sidewaysFriction.extremumSlip * (1 + downforce / CarMass);
-        sf.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / CarMass);
-        wheelCollider.sidewaysFriction = sf;
+        
     }
 
     private void HandleMotor()
