@@ -32,7 +32,7 @@ public class RoomTemplates : MonoBehaviour
             SetCenterCheckPoints();
             Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
             Invoke("SpawnCar", 0.1f);
-            Invoke("SetCameras", 0.01f);
+            Invoke("SetCameras", 0.1f);
             spawFinish = true;
         }
         else
