@@ -17,6 +17,10 @@ TagManager:
   - Forward CheckPoint
   - Right CheckPoint
   - Left CheckPoint
+  - LoadSceneCamera
+  - MiniMapCamera
+  - MiniMapRowImage
+  - SpeedInfo
   layers:
   - Default
   - TransparentFX
@@ -25,7 +29,7 @@ TagManager:
   - Water
   - UI
   - CheckPoint
-  - 
+  - Border
   - 
   - 
   - 
