@@ -7,13 +7,12 @@ public class Speedometer : MonoBehaviour
     {
         GameObject car = GameObject.FindGameObjectWithTag("Car");
         if (car != null)
-            gameObject.GetComponent<TMP_Text>().text = GetCarSpeed(car);
+            gameObject.GetComponent<TMP_Text>().text = $"{(int)GetCarSpeed(car)} KM/H";
     }
 
-    private string GetCarSpeed(GameObject car)
+    public float GetCarSpeed(GameObject car)
     {
         Rigidbody rb = car.GetComponent<Rigidbody>();
-        float speed = rb.velocity.magnitude * 3.6f;
-        return $"{(int)speed} KM/H";
+        return rb.velocity.magnitude * 3.6f; 
     }
 }
