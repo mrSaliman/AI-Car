@@ -140,7 +140,16 @@ public class RoomTemplates : MonoBehaviour
 
     private List<GameObject> GetRightWay() 
     {
-        var rightWay = new List<GameObject>() { roads[roads.Count - 1] };
+        GameObject endTile = roads[roads.Count - 1];
+        for(int i = roads.Count-1; i >= 0; i--)
+        {
+            if (roads[i].GetComponentsInChildren<Transform>().Where(e => e.gameObject.layer == 6).Count() == 2)
+            {
+                endTile = roads[i];
+                break;
+            }
+        }
+        var rightWay = new List<GameObject>() { endTile };
         GameObject tmp;
         do
         {
