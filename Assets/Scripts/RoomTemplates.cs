@@ -8,7 +8,6 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] topRoads;
     public GameObject[] leftRoads;
     public GameObject[] rightRoads;
-    public GameObject finish;
     public GameObject car;
 
     public List<GameObject> roads;
@@ -28,7 +27,7 @@ public class RoomTemplates : MonoBehaviour
             DeleteBorders();
             GenerateRightWay();
             SetCenterCheckPoints();
-            Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
+            Invoke("SetEndCheckPoint", 0.1f);
             Invoke("SpawnCar", 0.1f);
             Invoke("SetCameras", 0.1f);
             spawFinish = true;
@@ -176,6 +175,28 @@ public class RoomTemplates : MonoBehaviour
             string a = GetRotationTag(centerCheckPoints[i].transform.position, centerCheckPoints[i + 1].transform.position, centerCheckPoints[i + 2].transform.position);
             centerCheckPoints[i+1].tag = a;
         }
+    }
+
+
+    private void SetEndCheckPoint()
+    {
+        var rightWay = GetRightWay();
+        var finishTile = rightWay[0];
+        var prevTile = rightWay[1];
+        GameObject endCheckPoint = null;
+        float maxDistance = 0f;
+        var checkPoints = finishTile.GetComponentsInChildren<Transform>().Where(e => e.gameObject.layer == 6).ToList();
+        for (int i = 0; i < checkPoints.Count; i++)
+        {
+            var distance = Vector3.Distance(checkPoints[i].transform.position, prevTile.transform.position);
+            if (distance > maxDistance)
+            {
+                maxDistance = distance;
+                endCheckPoint = checkPoints[i].gameObject;
+            }
+        }
+        endCheckPoint.tag = "End CheckPoint";
+        endCheckPoint.AddComponent<CarFinished>();
     }
     
     private string GetRotationTag(Vector3 a, Vector3 b, Vector3 c)

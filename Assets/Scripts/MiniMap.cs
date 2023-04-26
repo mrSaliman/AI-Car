@@ -12,7 +12,7 @@ public class MiniMap : MonoBehaviour
     }
 
 
-    private void LateUpdate()
+    private void Update()
     {
         Vector3 newPosition = gameObject.transform.position;
         newPosition.y = _bigMapIsShowed ? _cameraYPos + 500f : _cameraYPos + gameObject.GetComponent<Speedometer>().GetCarSpeed();
