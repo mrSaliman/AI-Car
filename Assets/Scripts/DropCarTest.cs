@@ -5,7 +5,7 @@ public class DropCarTest : MonoBehaviour
 {
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Car") != null && GameObject.FindGameObjectWithTag("Car").transform.position.y < -1)
+        if (gameObject.transform.position.y < -1)
             SceneManager.LoadScene("MapGeneration");
     }
 }

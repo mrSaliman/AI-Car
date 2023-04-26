@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -19,7 +18,6 @@ public class RoomTemplates : MonoBehaviour
 
     private void Start()
     {
-        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = false;
         InvokeRepeating("EndSpawning", 0f, 1f);
     }
 
@@ -40,7 +38,6 @@ public class RoomTemplates : MonoBehaviour
             
     }
 
-
     private void DeleteBorders()
     {
         for(int i = 0; i < roads.Count; i++)
@@ -55,7 +52,6 @@ public class RoomTemplates : MonoBehaviour
             }
         } 
     }
-
 
     private void GenerateRightWay()
     {
@@ -105,7 +101,6 @@ public class RoomTemplates : MonoBehaviour
         DeleteFirstAndLastCheckPoints(0, 1, rightWay);
     }
 
-
     private void DeleteFirstAndLastCheckPoints(int actul, int next, List<GameObject> rightWay)
     {
         float minDistance = float.MaxValue;
@@ -143,7 +138,6 @@ public class RoomTemplates : MonoBehaviour
             rotation += 180;
         return rotation;
     }
-
 
     private List<GameObject> GetRightWay() 
     {
@@ -183,7 +177,6 @@ public class RoomTemplates : MonoBehaviour
             centerCheckPoints[i+1].tag = a;
         }
     }
-
     
     private string GetRotationTag(Vector3 a, Vector3 b, Vector3 c)
     {
@@ -198,15 +191,16 @@ public class RoomTemplates : MonoBehaviour
             return "Forward CheckPoint";
     }
 
-
     private void SpawnCar()
     {
-        Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
+        GameObject car = this.car;
+        car.transform.position = new Vector3(0, 0.2f, 0);
+        car.transform.rotation = Quaternion.Euler(0, GetCarRotation(), 0);
+        Instantiate(car);
     }
 
     private void SetCameras()
     {
-        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = true;
         GameObject.FindGameObjectWithTag("LoadSceneCamera").GetComponent<Camera>().enabled = false;
     }
 }
