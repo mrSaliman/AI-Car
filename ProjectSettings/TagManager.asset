@@ -21,6 +21,7 @@ TagManager:
   - MiniMapCamera
   - MiniMapRowImage
   - SpeedInfo
+  - End CheckPoint
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - UI
   - CheckPoint
   - Border
-  - Finish
+  - 
   - 
   - 
   - 
