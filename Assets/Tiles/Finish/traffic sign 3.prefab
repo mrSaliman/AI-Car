@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8921710758681463030}
   - component: {fileID: 8931919400321703996}
   - component: {fileID: 8881534057349967468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sign cycle form
   m_TagString: Finish
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8908802194702205936}
   m_LocalRotation: {x: 0.5000001, y: 0.50000006, z: -0.4999999, w: -0.49999994}
-  m_LocalPosition: {x: -1.047, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 179980386561455305}
   - component: {fileID: 5202047444535809746}
   - component: {fileID: 2313226523194369535}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: traffic sign 3
   m_TagString: Finish
   m_Icon: {fileID: 0}
@@ -144,8 +144,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &5202047444535809746
 Rigidbody:
   m_ObjectHideFlags: 0
