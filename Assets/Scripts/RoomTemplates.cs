@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -26,6 +27,7 @@ public class RoomTemplates : MonoBehaviour
         {
             DeleteBorders();
             GenerateRightWay();
+            SetCenterCheckPointRotation();
             SetCenterCheckPoints();
             Invoke("SetEndCheckPoint", 0.1f);
             Invoke("SpawnCar", 0.1f);
@@ -34,37 +36,37 @@ public class RoomTemplates : MonoBehaviour
         }
         else
             countOfRoads = roads.Count;
-            
+
     }
 
     private void DeleteBorders()
     {
-        for(int i = 0; i < roads.Count; i++)
+        for (int i = 0; i < roads.Count; i++)
         {
             Transform[] borders = roads[i].GetComponentsInChildren<Transform>();
             var borderCollisionCount = new BorderCollisionCount();
             for (int j = 0; j < borders.Length; j++)
             {
-                if (borders[j].CompareTag("Border") && 
-                    borders[j].gameObject.TryGetComponent<BorderCollisionCount>(out borderCollisionCount) && 
+                if (borders[j].CompareTag("Border") &&
+                    borders[j].gameObject.TryGetComponent<BorderCollisionCount>(out borderCollisionCount) &&
                     borders[j].gameObject.GetComponent<BorderCollisionCount>().CollisionCount > 4)
                 {
                     Destroy(borders[j].gameObject);
                 }
             }
-        } 
+        }
     }
 
     private void GenerateRightWay()
     {
         var rightWay = GetRightWay();
-        
+
         roads.Where(e => !rightWay.Contains(e))
             .Select(e => e.GetComponentsInChildren<Transform>()).ToList()
             .ForEach(e => e.Where(k => k.CompareTag("Forward CheckPoint")).ToList()
             .ForEach(k => Destroy(k.gameObject)));
 
-        for(int i = 1; i < rightWay.Count-2; i++)
+        for (int i = 1; i < rightWay.Count - 2; i++)
         {
             if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).Count() > 3)
             {
@@ -87,8 +89,8 @@ public class RoomTemplates : MonoBehaviour
                     distance = Vector3.Distance(checkPoints[j].position, rightWay[i + 1].transform.position);
                     if (distance < minDistanceForNext)
                     {
-                        minDistanceForNext= distance;
-                        checkPointIdWithMinDistanceForNext= checkPoints[j].GetComponent<CheckPointDirection>().Direction;
+                        minDistanceForNext = distance;
+                        checkPointIdWithMinDistanceForNext = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
                     }
                 }
                 whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForNext);
@@ -108,7 +110,7 @@ public class RoomTemplates : MonoBehaviour
         float minDistance = float.MaxValue;
         int checkPointWithMinDistance = 0;
         var checkPoints = rightWay[actul].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
-        
+
         for (int i = 0; i < checkPoints.Count; i++)
         {
             float distance = Vector3.Distance(checkPoints[i].position, rightWay[next].transform.position);
@@ -131,7 +133,7 @@ public class RoomTemplates : MonoBehaviour
             .Where(e => e.CompareTag("Forward CheckPoint"))
             .Select(e => e.GetComponent<CheckPointDirection>().Direction)
             .ToList();
-        
+
         if (checkPoints.Contains(1))
             rotation += 90;
         else if (checkPoints.Contains(2))
@@ -141,7 +143,7 @@ public class RoomTemplates : MonoBehaviour
         return rotation;
     }
 
-    private List<GameObject> GetRightWay() 
+    private List<GameObject> GetRightWay()
     {
         GameObject endTile = roads[roads.Count - 1];
         var rightWay = new List<GameObject>() { endTile };
@@ -152,32 +154,29 @@ public class RoomTemplates : MonoBehaviour
             rightWay.Add(tmp);
         } while (tmp != null);
         return rightWay;
-    } 
-    
+    }
+
     private void SetCenterCheckPoints()
     {
         var rightWay = GetRightWay();
         var centerCheckPoints = new List<GameObject>();
 
-        for(int i = 0; i < rightWay.Count-1; i++)
+        for (int i = 0; i < rightWay.Count - 1; i++)
         {
             var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
-            if(checkPoints.Count > 2)
+            for (int j = 0; j < checkPoints.Count; j++)
             {
-                for (int j = 0; j < checkPoints.Count; j++)
+                if (checkPoints[j].GetComponent<CheckPointDirection>().Direction == 0)
                 {
-                    if (checkPoints[j].GetComponent<CheckPointDirection>().Direction == 0)
-                    {
-                        centerCheckPoints.Add(checkPoints[j].gameObject);
-                    }
+                    centerCheckPoints.Add(checkPoints[j].gameObject);
                 }
             }
         }
-        
-        for(int i = 0; i < centerCheckPoints.Count - 2; i++)
+
+        for (int i = 0; i < centerCheckPoints.Count - 2; i++)
         {
-            string a = GetRotationTag(centerCheckPoints[i].transform.position, centerCheckPoints[i + 1].transform.position, centerCheckPoints[i + 2].transform.position);
-            centerCheckPoints[i+1].tag = a;
+            string centralCheckPointTag = GetRotationTag(centerCheckPoints[i].transform.position, centerCheckPoints[i + 1].transform.position, centerCheckPoints[i + 2].transform.position);
+            centerCheckPoints[i + 1].tag = centralCheckPointTag;
         }
     }
 
@@ -202,7 +201,7 @@ public class RoomTemplates : MonoBehaviour
         endCheckPoint.tag = "End CheckPoint";
         endCheckPoint.AddComponent<CarFinished>();
     }
-    
+
     private string GetRotationTag(Vector3 a, Vector3 b, Vector3 c)
     {
         var ab = a - b;
@@ -214,6 +213,51 @@ public class RoomTemplates : MonoBehaviour
             return "Left CheckPoint";
         else
             return "Forward CheckPoint";
+    }
+
+    private void SetCenterCheckPointRotation()
+    {
+        var rightWay = GetRightWay();
+        for (int i = 1; i < rightWay.Count - 2; i++)
+        {
+            var centerCheckPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
+            if (centerCheckPoints.Count >= 7)
+            {
+                var actualCenterCheckPoint = centerCheckPoints.FirstOrDefault(e => e.GetComponent<CheckPointDirection>().Direction == 0);
+
+                var prevCenterCheckPoint = rightWay[i - 1].GetComponentsInChildren<Transform>()
+                    .Where(e => e.CompareTag("Forward CheckPoint")).ToList()
+                    .FirstOrDefault(e => e.GetComponent<CheckPointDirection>().Direction == 0);
+
+                var nextCenterCheckPoint = rightWay[i + 1].GetComponentsInChildren<Transform>()
+                    .Where(e => e.CompareTag("Forward CheckPoint")).ToList()
+                    .FirstOrDefault(e => e.GetComponent<CheckPointDirection>().Direction == 0);
+
+                actualCenterCheckPoint.rotation = Quaternion.Euler(0, GetCenterCheckPointRotation(prevCenterCheckPoint.position, actualCenterCheckPoint.position, nextCenterCheckPoint.position), 0);
+            }
+        }
+    }
+
+    private float GetCenterCheckPointRotation(Vector3 prev, Vector3 actual, Vector3 next)
+    {
+        if (prev.x == next.x)
+        {
+            return 90f;
+        }
+        else if (prev.z == next.z)
+        {
+            return 0f;
+        }
+
+
+        else if ((next.x - prev.x > 0 && next.z - prev.z > 0) || (next.x - prev.x < 0 && next.z - prev.z < 0))
+        {
+            return 135f;
+        }
+        else
+        {
+            return 45f;
+        }
     }
 
     private void SpawnCar()
