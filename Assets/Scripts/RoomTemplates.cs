@@ -42,9 +42,12 @@ public class RoomTemplates : MonoBehaviour
         for(int i = 0; i < roads.Count; i++)
         {
             Transform[] borders = roads[i].GetComponentsInChildren<Transform>();
+            var borderCollisionCount = new BorderCollisionCount();
             for (int j = 0; j < borders.Length; j++)
             {
-                if (borders[j].CompareTag("Border") && borders[j].gameObject.GetComponent<BorderCollisionCount>().CollisionCount > 0)
+                if (borders[j].CompareTag("Border") && 
+                    borders[j].gameObject.TryGetComponent<BorderCollisionCount>(out borderCollisionCount) && 
+                    borders[j].gameObject.GetComponent<BorderCollisionCount>().CollisionCount > 4)
                 {
                     Destroy(borders[j].gameObject);
                 }
@@ -141,14 +144,6 @@ public class RoomTemplates : MonoBehaviour
     private List<GameObject> GetRightWay() 
     {
         GameObject endTile = roads[roads.Count - 1];
-        for(int i = roads.Count-1; i >= 0; i--)
-        {
-            if (roads[i].GetComponentsInChildren<Transform>().Where(e => e.gameObject.layer == 6).Count() == 2)
-            {
-                endTile = roads[i];
-                break;
-            }
-        }
         var rightWay = new List<GameObject>() { endTile };
         GameObject tmp;
         do
