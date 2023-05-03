@@ -45,8 +45,8 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FireRays();
-        GetInput();
+        //FireRays();
+        //GetInput();
         HandleMotor();
         HandleSteering();
         AddDownForce();
@@ -68,9 +68,9 @@ public class CarController : MonoBehaviour
             Debug.DrawRay(pos, angle * 15, Color.red);
 
             RaycastHit hitData;
-            if (Physics.Raycast(ray, out hitData, 15, 192))
+            if (Physics.Raycast(ray, out hitData, 15, 448))
             {
-                //print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
+                print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
             }
 
         }
@@ -81,6 +81,13 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis(HORIZONTAL);
         verticalInput = Input.GetAxis(VERTICAL);
         isBreaking = Input.GetButton("Jump");
+    }
+
+    public void SetInput(float horizontal, float vertical, bool breaking)
+    {
+        horizontalInput = horizontal;
+        verticalInput = vertical;
+        isBreaking = breaking;
     }
 
     private void AddDownForce()

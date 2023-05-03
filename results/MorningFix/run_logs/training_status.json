@@ -1,0 +1,56 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 499948,
+                "file_path": "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499948.onnx",
+                "reward": 4.901502725752917,
+                "creation_time": 1683088604.5289838,
+                "auxillary_file_paths": [
+                    "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499948.pt"
+                ]
+            },
+            {
+                "steps": 597838,
+                "file_path": "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-597838.onnx",
+                "reward": -3.610255411693028,
+                "creation_time": 1683089442.5154653,
+                "auxillary_file_paths": [
+                    "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-597838.pt"
+                ]
+            },
+            {
+                "steps": 999966,
+                "file_path": "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-999966.onnx",
+                "reward": -1.3770987391471863,
+                "creation_time": 1683092959.0491495,
+                "auxillary_file_paths": [
+                    "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-999966.pt"
+                ]
+            },
+            {
+                "steps": 1119917,
+                "file_path": "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1119917.onnx",
+                "reward": -0.5535714657683122,
+                "creation_time": 1683094019.0640469,
+                "auxillary_file_paths": [
+                    "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1119917.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1119917,
+            "file_path": "results\\MorningFix\\MoveThroughCheckpoints.onnx",
+            "reward": -0.5535714657683122,
+            "creation_time": 1683094019.0640469,
+            "auxillary_file_paths": [
+                "results\\MorningFix\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1119917.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 14049,
+                "file_path": "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14049.onnx",
+                "reward": -0.0018306811267007307,
+                "creation_time": 1683063032.3268023,
+                "auxillary_file_paths": [
+                    "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14049.pt"
+                ]
+            },
+            {
+                "steps": 14099,
+                "file_path": "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14099.onnx",
+                "reward": -0.0018380985069329817,
+                "creation_time": 1683063033.7181861,
+                "auxillary_file_paths": [
+                    "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14099.pt"
+                ]
+            },
+            {
+                "steps": 14149,
+                "file_path": "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14149.onnx",
+                "reward": -0.0018466783462234002,
+                "creation_time": 1683063035.1627176,
+                "auxillary_file_paths": [
+                    "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14149.pt"
+                ]
+            },
+            {
+                "steps": 14199,
+                "file_path": "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14199.onnx",
+                "reward": -0.0018117325790412105,
+                "creation_time": 1683063036.602077,
+                "auxillary_file_paths": [
+                    "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14199.pt"
+                ]
+            },
+            {
+                "steps": 14236,
+                "file_path": "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14236.onnx",
+                "reward": -0.0017338804004302887,
+                "creation_time": 1683063037.829202,
+                "auxillary_file_paths": [
+                    "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14236.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 14236,
+            "file_path": "results\\test3\\MoveThroughCheckpoints.onnx",
+            "reward": -0.0017338804004302887,
+            "creation_time": 1683063037.829202,
+            "auxillary_file_paths": [
+                "results\\test3\\MoveThroughCheckpoints\\MoveThroughCheckpoints-14236.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

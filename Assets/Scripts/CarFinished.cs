@@ -5,7 +5,7 @@ public class CarFinished : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Car"))
-            SceneManager.LoadScene("MapGeneration");
+        /*if (other.CompareTag("Car"))
+            SceneManager.LoadScene("MapGeneration");*/
     }
 }

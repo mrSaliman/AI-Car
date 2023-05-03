@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -9,7 +8,6 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] topRoads;
     public GameObject[] leftRoads;
     public GameObject[] rightRoads;
-    public GameObject finish;
     public GameObject car;
 
     public List<GameObject> roads;
@@ -19,7 +17,6 @@ public class RoomTemplates : MonoBehaviour
 
     private void Start()
     {
-        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = false;
         InvokeRepeating("EndSpawning", 0f, 1f);
     }
 
@@ -30,7 +27,7 @@ public class RoomTemplates : MonoBehaviour
             DeleteBorders();
             GenerateRightWay();
             SetCenterCheckPoints();
-            Instantiate(finish, roads[roads.Count - 1].transform.position, Quaternion.identity);
+            Invoke("SetEndCheckPoint", 0.1f);
             Invoke("SpawnCar", 0.1f);
             Invoke("SetCameras", 0.1f);
             spawFinish = true;
@@ -39,7 +36,6 @@ public class RoomTemplates : MonoBehaviour
             countOfRoads = roads.Count;
             
     }
-
 
     private void DeleteBorders()
     {
@@ -55,7 +51,6 @@ public class RoomTemplates : MonoBehaviour
             }
         } 
     }
-
 
     private void GenerateRightWay()
     {
@@ -105,7 +100,6 @@ public class RoomTemplates : MonoBehaviour
         DeleteFirstAndLastCheckPoints(0, 1, rightWay);
     }
 
-
     private void DeleteFirstAndLastCheckPoints(int actul, int next, List<GameObject> rightWay)
     {
         float minDistance = float.MaxValue;
@@ -126,7 +120,7 @@ public class RoomTemplates : MonoBehaviour
             .ForEach(e => Destroy(e.gameObject));
     }
 
-    private float GetCarRotation()
+    public float GetCarRotation()
     {
         float rotation = 0;
         var checkPoints = roads[0]
@@ -144,10 +138,18 @@ public class RoomTemplates : MonoBehaviour
         return rotation;
     }
 
-
     private List<GameObject> GetRightWay() 
     {
-        var rightWay = new List<GameObject>() { roads[roads.Count - 1] };
+        GameObject endTile = roads[roads.Count - 1];
+        for(int i = roads.Count-1; i >= 0; i--)
+        {
+            if (roads[i].GetComponentsInChildren<Transform>().Where(e => e.gameObject.layer == 6).Count() == 2)
+            {
+                endTile = roads[i];
+                break;
+            }
+        }
+        var rightWay = new List<GameObject>() { endTile };
         GameObject tmp;
         do
         {
@@ -184,6 +186,27 @@ public class RoomTemplates : MonoBehaviour
         }
     }
 
+
+    private void SetEndCheckPoint()
+    {
+        var rightWay = GetRightWay();
+        var finishTile = rightWay[0];
+        var prevTile = rightWay[1];
+        GameObject endCheckPoint = null;
+        float maxDistance = 0f;
+        var checkPoints = finishTile.GetComponentsInChildren<Transform>().Where(e => e.gameObject.layer == 6).ToList();
+        for (int i = 0; i < checkPoints.Count; i++)
+        {
+            var distance = Vector3.Distance(checkPoints[i].transform.position, prevTile.transform.position);
+            if (distance > maxDistance)
+            {
+                maxDistance = distance;
+                endCheckPoint = checkPoints[i].gameObject;
+            }
+        }
+        endCheckPoint.tag = "End CheckPoint";
+        endCheckPoint.AddComponent<CarFinished>();
+    }
     
     private string GetRotationTag(Vector3 a, Vector3 b, Vector3 c)
     {
@@ -198,15 +221,16 @@ public class RoomTemplates : MonoBehaviour
             return "Forward CheckPoint";
     }
 
-
     private void SpawnCar()
     {
-        Instantiate(car, new Vector3(0, 0.2f, 0), Quaternion.Euler(0, GetCarRotation(), 0));
+        GameObject car = this.car;
+        car.transform.position = new Vector3(0, 0.2f, 0);
+        car.transform.rotation = Quaternion.Euler(0, GetCarRotation(), 0);
+        Instantiate(car);
     }
 
     private void SetCameras()
     {
-        GameObject.FindGameObjectWithTag("MiniMapCamera").GetComponent<Camera>().enabled = true;
         GameObject.FindGameObjectWithTag("LoadSceneCamera").GetComponent<Camera>().enabled = false;
     }
 }

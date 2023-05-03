@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,14 +6,12 @@ public class Speedometer : MonoBehaviour
 {
     private void LateUpdate()
     {
-        GameObject car = GameObject.FindGameObjectWithTag("Car");
-        if (car != null)
-            gameObject.GetComponent<TMP_Text>().text = $"{(int)GetCarSpeed(car)} KM/H";
+        gameObject.GetComponentInChildren<TMP_Text>().text = $"{(int) GetCarSpeed()} KM/H";
     }
 
-    public float GetCarSpeed(GameObject car)
+    public float GetCarSpeed()
     {
-        Rigidbody rb = car.GetComponent<Rigidbody>();
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         return rb.velocity.magnitude * 3.6f; 
     }
 }
