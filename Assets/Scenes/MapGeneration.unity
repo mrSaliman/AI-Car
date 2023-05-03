@@ -582,6 +582,7 @@ MonoBehaviour:
   - {fileID: 6384344982164505642, guid: 2bb6641095fa6414cad76b49379c6a0f, type: 3}
   - {fileID: 8655988500854470482, guid: 3543eeda92d0284438195bf468902547, type: 3}
   car: {fileID: 8032962852117556514, guid: 52fcccd0d3bd0704887bc96f01ef8c45, type: 3}
+  miniMapCamera: {fileID: 5318496708428872458, guid: 67b2fabda9c68b34db99b5e4fce9dfeb, type: 3}
   roads: []
   tileScale: {x: 3, y: 1, z: 3}
 --- !u!1001 &1629686676
