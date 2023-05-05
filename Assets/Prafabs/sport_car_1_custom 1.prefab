@@ -413,7 +413,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2450126403793216452}
-  m_LocalRotation: {x: 0.009008672, y: 0.000000002268223, z: -2.0434515e-11, w: 0.9999594}
+  m_LocalRotation: {x: 0.009008677, y: 1e-45, z: -0, w: 0.9999594}
   m_LocalPosition: {x: 0, y: 2, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1061,8 +1061,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8032962852117556514}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1114,6 +1114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46d696e418f0784a85edd43a6a671c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   motorForce: 1000
   breakForce: 3000
   maxSteerAngle: 35
@@ -1269,13 +1271,14 @@ MonoBehaviour:
   - Right CheckPoint
   - Left CheckPoint
   - Finish
+  - Car
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.5
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967240
+    m_Bits: 4294967241
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -29,9 +30,10 @@ public class RoomTemplates : MonoBehaviour
             GenerateRightWay();
             SetCenterCheckPointRotation();
             SetCenterCheckPoints();
-            Invoke("SetEndCheckPoint", 0.1f);
-            Invoke("SpawnCar", 0.1f);
-            Invoke("SetCameras", 0.1f);
+            Invoke(nameof(SetEndCheckPoint), 0.1f);
+            //StartCoroutine(SpawnCar());
+            Invoke(nameof(SpawnCar), 0.1f);
+            Invoke(nameof(SetCameras), 0.1f);
             spawFinish = true;
         }
         else
@@ -262,10 +264,38 @@ public class RoomTemplates : MonoBehaviour
 
     private void SpawnCar()
     {
-        GameObject car = this.car;
-        car.transform.position = new Vector3(0, 0.2f, 0);
-        car.transform.rotation = Quaternion.Euler(0, GetCarRotation(), 0);
-        Instantiate(car);
+        //yield return new WaitForSeconds(0.1f);
+
+        float rotation = GetCarRotation();
+
+        for (var p = -4; p < 5; p += 2)
+        {
+            float x = 0f;
+            float z = 0f;
+            if (rotation < 1f || (rotation > 179f && rotation < 181f))
+                x = p;
+            else 
+                z = p;
+
+            GameObject newCar = Instantiate(car);
+            //newCar.name = "Car " + p;
+            //newCar.GetComponent<Rigidbody>().position = new Vector3(x, 0.2f, z);
+            //newCar.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, rotation, 0);
+            newCar.transform.SetPositionAndRotation(new Vector3(x, 0.2f, z), Quaternion.Euler(0, rotation, 0));
+            //Debug.Log("Set pos for " + newCar.name + " pos " + newCar.transform.position);
+
+            //yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator CarsActivator(IEnumerable<GameObject> cars)
+    {
+        yield return new WaitForFixedUpdate();
+
+        foreach (var c in cars)
+        {
+            c.gameObject.SetActive(true);
+        }
     }
 
     private void SetCameras()

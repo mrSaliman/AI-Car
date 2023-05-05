@@ -14,8 +14,8 @@ public class MoveThroughCheckpointsAgent : Agent
         gameObject.GetComponent<DeleteCheckPoints>().Regenrate();
 
         GameObject car = gameObject;
-        car.transform.position = new Vector3(0, 0.2f, 0);
-        car.transform.rotation = Quaternion.Euler(0, GameObject.FindWithTag("Roads").GetComponent<RoomTemplates>().GetCarRotation(), 0);
+        car.transform.position = car.GetComponent<CarController>().startPosition;
+        car.transform.rotation = car.GetComponent<CarController>().startRotation;
         rigidbody.velocity = Vector3.zero;
     }
 
