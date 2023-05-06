@@ -11,7 +11,7 @@ public class RoomSpawner : MonoBehaviour
     {
         templates = GameObject.FindGameObjectWithTag("Roads").GetComponent<RoomTemplates>();
         SetTileScale();   
-        Invoke("Spawn", 0.03f);
+        Invoke(nameof(Spawn), 0.03f);
     }
 
     private void Spawn()
@@ -21,16 +21,16 @@ public class RoomSpawner : MonoBehaviour
             switch (openingDirection)
             {
                 case 1:
-                    spawnRoom(templates.bottomRoads, 1);
+                    SpawnRoom(templates.bottomRoads);
                     break;
                 case 2:
-                    spawnRoom(templates.topRoads, 2);
+                    SpawnRoom(templates.topRoads);
                     break;
                 case 3:
-                    spawnRoom(templates.leftRoads, 3);
+                    SpawnRoom(templates.leftRoads);
                     break;
                 case 4:
-                    spawnRoom(templates.rightRoads, 4);
+                    SpawnRoom(templates.rightRoads);
                     break;
             }
             spawned = true;
@@ -56,7 +56,7 @@ public class RoomSpawner : MonoBehaviour
     }
 
 
-    private void spawnRoom(GameObject[] roads, int direction)
+    private void SpawnRoom(GameObject[] roads)
     {
         rand = Random.Range(0, roads.Length);
         GameObject road = roads[rand];

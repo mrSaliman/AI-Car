@@ -59,29 +59,6 @@ public class CarController : MonoBehaviour
         UpdateWheels();
     }
 
-    private void FireRays()
-    {
-        for (int i = -90; i <= 90; i += 18)
-        {
-            Vector3 angle = transform.forward;
-            var pos = transform.position;
-
-            angle = Quaternion.AngleAxis(i, Vector3.up) * angle;
-            pos.y += 0.4f;
-
-            Ray ray = new(pos, angle);
-
-            Debug.DrawRay(pos, angle * 15, Color.red);
-
-            RaycastHit hitData;
-            if (Physics.Raycast(ray, out hitData, 15, 448))
-            {
-                print(hitData.transform.gameObject.tag + ' ' + hitData.distance);
-            }
-
-        }
-    }
-
     private void GetInput()
     {
         horizontalInput = Input.GetAxis(HORIZONTAL);
@@ -110,11 +87,6 @@ public class CarController : MonoBehaviour
         temp.asymptoteSlip = rearLeftWheelCollider.sidewaysFriction.asymptoteSlip * (1 + downforce / CarMass);
         frontRightWheelCollider.sidewaysFriction = temp;
         frontLeftWheelCollider.sidewaysFriction = temp;
-    }
-
-    private void UpdateSingleWheelSlips(WheelCollider wheelCollider, float downforce) 
-    {
-        
     }
 
     private void HandleMotor()

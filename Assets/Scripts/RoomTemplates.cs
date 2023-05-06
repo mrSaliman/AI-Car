@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -14,100 +16,107 @@ public class RoomTemplates : MonoBehaviour
 
     public List<GameObject> roads;
     public Vector3 tileScale;
-    private bool spawFinish = false;
-    private int countOfRoads = 0;
+    private int roadsCount = 0;
 
     private void Start()
     {
-        InvokeRepeating("EndSpawning", 0f, 1f);
+        InvokeRepeating(nameof(EndSpawning), 0f, 1f);
     }
 
     private void EndSpawning()
     {
-        if (spawFinish == false && countOfRoads == roads.Count)
+        if (roadsCount == roads.Count)
         {
             DeleteBorders();
             GenerateRightWay();
             SetCenterCheckPointRotation();
             SetCenterCheckPoints();
-            Invoke(nameof(SetEndCheckPoint), 0.1f);
-            //StartCoroutine(SpawnCar());
-            Invoke(nameof(SpawnCar), 0.1f);
-            Invoke(nameof(SetCameras), 0.1f);
-            spawFinish = true;
+            SetEndCheckPoint();
+            SpawnCars();
+            SetCameras();
+            CancelInvoke();
         }
         else
-            countOfRoads = roads.Count;
-
+            roadsCount = roads.Count;
     }
 
     private void DeleteBorders()
     {
-        for (int i = 0; i < roads.Count; i++)
+        foreach (var road in roads)
         {
-            Transform[] borders = roads[i].GetComponentsInChildren<Transform>();
-            var borderCollisionCount = new BorderCollisionCount();
-            for (int j = 0; j < borders.Length; j++)
+            var borders = road.GetComponentsInChildren<Transform>();
+            foreach (var border in borders)
             {
-                if (borders[j].CompareTag("Border") &&
-                    borders[j].gameObject.TryGetComponent<BorderCollisionCount>(out borderCollisionCount) &&
-                    borders[j].gameObject.GetComponent<BorderCollisionCount>().CollisionCount > 4)
+                if (border.CompareTag("Border"))
                 {
-                    Destroy(borders[j].gameObject);
+                    var borderCollisionCount = border.GetComponent<BorderCollisionCount>();
+                    if (borderCollisionCount != null && borderCollisionCount.CollisionCount > 4)
+                    {
+                        Destroy(border.gameObject);
+                    }
                 }
             }
         }
+
     }
 
     private void GenerateRightWay()
     {
         var rightWay = GetRightWay();
 
-        roads.Where(e => !rightWay.Contains(e))
-            .Select(e => e.GetComponentsInChildren<Transform>()).ToList()
-            .ForEach(e => e.Where(k => k.CompareTag("Forward CheckPoint")).ToList()
-            .ForEach(k => Destroy(k.gameObject)));
+        // Cache the child transform components for each road element
+        var roadComponents = roads.Select(e => e.GetComponent<Transform>()).ToList();
 
-        for (int i = 1; i < rightWay.Count - 2; i++)
+        // Use a hash set for faster containment checks
+        var rightWaySet = new HashSet<Transform>(rightWay);
+
+        // Use parallel processing to delete "Forward CheckPoint" components
+        foreach (var roadComponent in roadComponents) 
         {
-            if (rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).Count() > 3)
+            if (!rightWaySet.Contains(roadComponent))
             {
-                List<int> whiteListOfCheckPoints = new List<int>() { 0 };
-                var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
-                float minDistanceForPrev = float.MaxValue;
-                float minDistanceForNext = float.MaxValue;
-                int checkPointIdWithMinDistanceForPrev = 0;
-                int checkPointIdWithMinDistanceForNext = 0;
-
-                for (int j = 0; j < checkPoints.Count; j++)
-                {
-                    float distance = Vector3.Distance(checkPoints[j].position, rightWay[i - 1].transform.position);
-                    if (distance < minDistanceForPrev)
-                    {
-                        minDistanceForPrev = distance;
-                        checkPointIdWithMinDistanceForPrev = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
-                    }
-
-                    distance = Vector3.Distance(checkPoints[j].position, rightWay[i + 1].transform.position);
-                    if (distance < minDistanceForNext)
-                    {
-                        minDistanceForNext = distance;
-                        checkPointIdWithMinDistanceForNext = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
-                    }
-                }
-                whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForNext);
-                whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForPrev);
-
-                checkPoints.Where(e => !whiteListOfCheckPoints.Contains(e.GetComponent<CheckPointDirection>().Direction)).ToList()
-                    .ForEach(e => Destroy(e.gameObject));
+                foreach (var component in roadComponent.GetComponentsInChildren<Transform>().Where(k => k.CompareTag("Forward CheckPoint")))
+                    Destroy(component.gameObject);
+                
             }
         }
 
-        DeleteFirstAndLastCheckPoints(rightWay.Count - 2, rightWay.Count - 3, rightWay);
-        DeleteFirstAndLastCheckPoints(0, 1, rightWay);
+        for (int i = 1; i < rightWay.Count - 1; i++)
+        {
+            List<int> whiteListOfCheckPoints = new() { 0 };
+            var checkPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
+            float minDistanceForPrev = float.MaxValue;
+            float minDistanceForNext = float.MaxValue;
+            int checkPointIdWithMinDistanceForPrev = 0;
+            int checkPointIdWithMinDistanceForNext = 0;
+
+            for (int j = 0; j < checkPoints.Count; j++)
+            {
+                float distance = Vector3.Distance(checkPoints[j].position, rightWay[i - 1].transform.position);
+                if (distance < minDistanceForPrev)
+                {
+                    minDistanceForPrev = distance;
+                    checkPointIdWithMinDistanceForPrev = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
+                }
+
+                distance = Vector3.Distance(checkPoints[j].position, rightWay[i + 1].transform.position);
+                if (distance < minDistanceForNext)
+                {
+                    minDistanceForNext = distance;
+                    checkPointIdWithMinDistanceForNext = checkPoints[j].GetComponent<CheckPointDirection>().Direction;
+                }
+            }
+            whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForNext);
+            whiteListOfCheckPoints.Add(checkPointIdWithMinDistanceForPrev);
+
+            checkPoints.Where(e => !whiteListOfCheckPoints.Contains(e.GetComponent<CheckPointDirection>().Direction)).ToList()
+                .ForEach(e => Destroy(e.gameObject));
+        }
+
+        DeleteFirstAndLastCheckPoints(rightWay.Count - 1, rightWay.Count - 2, rightWay);
     }
 
-    private void DeleteFirstAndLastCheckPoints(int actul, int next, List<GameObject> rightWay)
+    private void DeleteFirstAndLastCheckPoints(int actul, int next, List<Transform> rightWay)
     {
         float minDistance = float.MaxValue;
         int checkPointWithMinDistance = 0;
@@ -145,16 +154,16 @@ public class RoomTemplates : MonoBehaviour
         return rotation;
     }
 
-    private List<GameObject> GetRightWay()
+    private List<Transform> GetRightWay()
     {
-        GameObject endTile = roads[roads.Count - 1];
-        var rightWay = new List<GameObject>() { endTile };
-        GameObject tmp;
+        var endTile = roads[^1].transform;
+        var rightWay = new List<Transform>() { endTile };
+        GameObject check;
         do
         {
-            tmp = rightWay[rightWay.Count - 1].GetComponent<AddRoom>().previousRoad;
-            rightWay.Add(tmp);
-        } while (tmp != null);
+            check = rightWay[^1].GetComponent<AddRoom>().previousRoad;
+            if (check != null) rightWay.Add(check.transform);
+        } while (check != null);
         return rightWay;
     }
 
@@ -220,11 +229,12 @@ public class RoomTemplates : MonoBehaviour
     private void SetCenterCheckPointRotation()
     {
         var rightWay = GetRightWay();
-        for (int i = 1; i < rightWay.Count - 2; i++)
+        for (int i = 1; i < rightWay.Count - 1; i++)
         {
             var centerCheckPoints = rightWay[i].GetComponentsInChildren<Transform>().Where(e => e.CompareTag("Forward CheckPoint")).ToList();
             if (centerCheckPoints.Count >= 7)
             {
+                Debug.Log(rightWay[i]);
                 var actualCenterCheckPoint = centerCheckPoints.FirstOrDefault(e => e.GetComponent<CheckPointDirection>().Direction == 0);
 
                 var prevCenterCheckPoint = rightWay[i - 1].GetComponentsInChildren<Transform>()
@@ -235,12 +245,12 @@ public class RoomTemplates : MonoBehaviour
                     .Where(e => e.CompareTag("Forward CheckPoint")).ToList()
                     .FirstOrDefault(e => e.GetComponent<CheckPointDirection>().Direction == 0);
 
-                actualCenterCheckPoint.rotation = Quaternion.Euler(0, GetCenterCheckPointRotation(prevCenterCheckPoint.position, actualCenterCheckPoint.position, nextCenterCheckPoint.position), 0);
+                actualCenterCheckPoint.rotation = Quaternion.Euler(0, GetCenterCheckPointRotation(prevCenterCheckPoint.position, nextCenterCheckPoint.position), 0);
             }
         }
     }
 
-    private float GetCenterCheckPointRotation(Vector3 prev, Vector3 actual, Vector3 next)
+    private float GetCenterCheckPointRotation(Vector3 prev, Vector3 next)
     {
         if (prev.x == next.x)
         {
@@ -262,7 +272,7 @@ public class RoomTemplates : MonoBehaviour
         }
     }
 
-    private void SpawnCar()
+    private void SpawnCars()
     {
         //yield return new WaitForSeconds(0.1f);
 
@@ -285,16 +295,6 @@ public class RoomTemplates : MonoBehaviour
             //Debug.Log("Set pos for " + newCar.name + " pos " + newCar.transform.position);
 
             //yield return new WaitForFixedUpdate();
-        }
-    }
-
-    private IEnumerator CarsActivator(IEnumerable<GameObject> cars)
-    {
-        yield return new WaitForFixedUpdate();
-
-        foreach (var c in cars)
-        {
-            c.gameObject.SetActive(true);
         }
     }
 

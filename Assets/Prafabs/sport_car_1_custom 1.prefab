@@ -1270,7 +1270,7 @@ MonoBehaviour:
   - Forward CheckPoint
   - Right CheckPoint
   - Left CheckPoint
-  - Finish
+  - End CheckPoint
   - Car
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 90

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DeleteCheckPoints : MonoBehaviour
 {
-    private List<GameObject> deletedCheckPoints = new List<GameObject>();
+    private List<GameObject> deletedCheckPoints = new();
 
     private void OnTriggerEnter(Collider other)
     {

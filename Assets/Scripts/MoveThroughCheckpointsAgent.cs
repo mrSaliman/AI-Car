@@ -14,8 +14,7 @@ public class MoveThroughCheckpointsAgent : Agent
         gameObject.GetComponent<DeleteCheckPoints>().Regenrate();
 
         GameObject car = gameObject;
-        car.transform.position = car.GetComponent<CarController>().startPosition;
-        car.transform.rotation = car.GetComponent<CarController>().startRotation;
+        car.transform.SetPositionAndRotation(car.GetComponent<CarController>().startPosition, car.GetComponent<CarController>().startRotation);
         rigidbody.velocity = Vector3.zero;
     }
 
@@ -28,7 +27,7 @@ public class MoveThroughCheckpointsAgent : Agent
     {
         float verticalInput = actions.ContinuousActions[0];
         float horizontalInput = actions.ContinuousActions[1];
-        bool isBreaking = actions.DiscreteActions[0] == 0 ? false : true;
+        bool isBreaking = actions.DiscreteActions[0] != 0;
         gameObject.GetComponent<CarController>().SetInput(horizontalInput, verticalInput, isBreaking);
 
         AddReward(-0.016f);
@@ -58,7 +57,7 @@ public class MoveThroughCheckpointsAgent : Agent
                 break;
             case 6:
                 AddReward(+1f);
-                if (other.tag == "End CheckPoint")
+                if (other.CompareTag("End CheckPoint"))
                 {
                     AddReward(+5f);
                     EndEpisode();
