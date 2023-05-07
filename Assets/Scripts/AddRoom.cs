@@ -7,7 +7,7 @@ public class AddRoom : MonoBehaviour
 
     private void Start()
     {
-        templates = GameObject.FindGameObjectWithTag("Roads").GetComponent<RoomTemplates>();
+        templates = transform.parent.GetComponent<RoomTemplates>();
         templates.roads.Add(gameObject);
     }
 }

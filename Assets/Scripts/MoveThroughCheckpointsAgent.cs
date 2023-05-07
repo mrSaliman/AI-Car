@@ -4,18 +4,47 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using System;
 
 public class MoveThroughCheckpointsAgent : Agent
 {
     [SerializeField] private new Rigidbody rigidbody;
+    private TrackCheckpoints trackCheckpoints;
+    private CarController carController;
+
+    private void Awake()
+    {
+        carController = GetComponent<CarController>();
+        trackCheckpoints = transform.parent.parent.GetComponent<TrackCheckpoints>();
+    }
+
+    private void Start()
+    {
+        trackCheckpoints.OnCarCorrectCheckpoint += TrackCheckpoints_OnCarCorrectCheckpoint;
+        trackCheckpoints.OnCarWrongCheckpoint += TrackCheckpoints_OnCarWrongCheckpoint;
+    }
+
+    private void TrackCheckpoints_OnCarWrongCheckpoint(object sender, TrackCheckpoints.CarCheckpointEventArgs e)
+    {
+        if (e.carTransform == transform)
+        {
+            AddReward(-0.1f);
+        }
+    }
+
+    private void TrackCheckpoints_OnCarCorrectCheckpoint(object sender, TrackCheckpoints.CarCheckpointEventArgs e)
+    {
+        if (e.carTransform == transform)
+        {
+            AddReward(+0.1f);
+        }
+    }
 
     public override void OnEpisodeBegin()
     {
-        gameObject.GetComponent<DeleteCheckPoints>().Regenrate();
-
-        GameObject car = gameObject;
-        car.transform.SetPositionAndRotation(car.GetComponent<CarController>().startPosition, car.GetComponent<CarController>().startRotation);
         rigidbody.velocity = Vector3.zero;
+        transform.SetPositionAndRotation(carController.startPosition, carController.startRotation);
+        trackCheckpoints.ResetCheckpoints(transform);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -28,9 +57,9 @@ public class MoveThroughCheckpointsAgent : Agent
         float verticalInput = actions.ContinuousActions[0];
         float horizontalInput = actions.ContinuousActions[1];
         bool isBreaking = actions.DiscreteActions[0] != 0;
-        gameObject.GetComponent<CarController>().SetInput(horizontalInput, verticalInput, isBreaking);
+        carController.SetInput(horizontalInput, verticalInput, isBreaking);
 
-        AddReward(-0.016f);
+        AddReward(-0.02f);
         if (verticalInput >  0 && !isBreaking) 
         {
             AddReward(0.02f *  verticalInput);
@@ -48,23 +77,14 @@ public class MoveThroughCheckpointsAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        int layer = other.gameObject.layer;
-        switch (layer)
+        if (other.gameObject.layer == 7) AddReward(-0.5f);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == 7)
         {
-            case 7:
-                AddReward(-5f);
-                EndEpisode();
-                break;
-            case 6:
-                AddReward(+1f);
-                if (other.CompareTag("End CheckPoint"))
-                {
-                    AddReward(+5f);
-                    EndEpisode();
-                }
-                break;
-            default:
-                break;
+            AddReward(-0.1f);
         }
     }
 }

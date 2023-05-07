@@ -45,14 +45,11 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
-        Debug.Log(startPosition);
         startRotation = transform.rotation;
     }
 
     private void FixedUpdate()
     {
-        //FireRays();
-        //GetInput();
         HandleMotor();
         HandleSteering();
         AddDownForce();

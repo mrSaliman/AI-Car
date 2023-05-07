@@ -14,19 +14,14 @@ TagManager:
   - Road
   - Destroyer
   - Roads
-  - Forward CheckPoint
-  - Right CheckPoint
-  - Left CheckPoint
   - LoadSceneCamera
-  - MiniMapCamera
-  - MiniMapRowImage
   - SpeedInfo
   - End CheckPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Cars
   - Water
   - UI
   - CheckPoint

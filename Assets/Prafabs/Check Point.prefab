@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 253443981589651882}
   - component: {fileID: 5487971213875655950}
   - component: {fileID: 3804342865474243436}
-  - component: {fileID: 705700227076778604}
+  - component: {fileID: 402835834713793191}
   m_Layer: 6
   m_Name: Check Point
-  m_TagString: Forward CheckPoint
+  m_TagString: Check Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4014818649330357937}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.75, y: 2, z: 6}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 15, y: 5, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,9 +96,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &705700227076778604
+--- !u!114 &402835834713793191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4014818649330357937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a752d4b78ad3fa24c8172b3fe4903039, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dd4a59cedce8bc43b72e440e3cd9dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 0

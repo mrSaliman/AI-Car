@@ -9,7 +9,7 @@ public class RoomSpawner : MonoBehaviour
 
     private void Start()
     {
-        templates = GameObject.FindGameObjectWithTag("Roads").GetComponent<RoomTemplates>();
+        templates = transform.parent.parent.GetComponent<RoomTemplates>();
         SetTileScale();   
         Invoke(nameof(Spawn), 0.03f);
     }
@@ -61,6 +61,6 @@ public class RoomSpawner : MonoBehaviour
         rand = Random.Range(0, roads.Length);
         GameObject road = roads[rand];
         road.GetComponent<AddRoom>().previousRoad = gameObject.transform.parent.gameObject;
-        Instantiate(road, transform.position, road.transform.rotation);
+        Instantiate(road, transform.position, road.transform.rotation, templates.gameObject.transform);
     }
 }
