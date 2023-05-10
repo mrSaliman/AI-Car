@@ -11,6 +11,8 @@ public class MoveThroughCheckpointsAgent : Agent
     [SerializeField] private new Rigidbody rigidbody;
     private TrackCheckpoints trackCheckpoints;
     private CarController carController;
+    private int stopTime;
+    private readonly float speedEpsilon = 20f;
 
     private void Awake()
     {
@@ -28,7 +30,8 @@ public class MoveThroughCheckpointsAgent : Agent
     {
         if (e.carTransform == transform)
         {
-            AddReward(-0.1f);
+            AddReward(-1f);
+            Debug.Log("wrong");
         }
     }
 
@@ -36,7 +39,8 @@ public class MoveThroughCheckpointsAgent : Agent
     {
         if (e.carTransform == transform)
         {
-            AddReward(+0.1f);
+            AddReward(+1f);
+            Debug.Log("correct");
         }
     }
 
@@ -45,11 +49,15 @@ public class MoveThroughCheckpointsAgent : Agent
         rigidbody.velocity = Vector3.zero;
         transform.SetPositionAndRotation(carController.startPosition, carController.startRotation);
         trackCheckpoints.ResetCheckpoints(transform);
+        stopTime = 0;
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(rigidbody.velocity);
+        Vector3 checkpointForward = trackCheckpoints.GetNextCheckpoint(transform).transform.forward;
+        float directionDot = Vector3.Dot(transform.forward, checkpointForward);
+        sensor.AddObservation(directionDot);
+        sensor.AddObservation(rigidbody.velocity.magnitude);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -59,11 +67,23 @@ public class MoveThroughCheckpointsAgent : Agent
         bool isBreaking = actions.DiscreteActions[0] != 0;
         carController.SetInput(horizontalInput, verticalInput, isBreaking);
 
-        AddReward(-0.02f);
-        if (verticalInput >  0 && !isBreaking) 
+        if (rigidbody.velocity.magnitude * 3.6f < speedEpsilon)
         {
-            AddReward(0.02f *  verticalInput);
+            stopTime++;
+        } else
+        {
+            stopTime = 0;
         }
+
+        if (verticalInput > 0 && !isBreaking)
+        {
+            AddReward(0.05f * verticalInput);
+        }
+        if (verticalInput > 0.5f && stopTime > 1)
+        {
+            stopTime -= 2;
+        }
+        AddReward(-0.00001f * stopTime * stopTime);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -77,12 +97,34 @@ public class MoveThroughCheckpointsAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7) AddReward(-0.5f);
+        if (other.gameObject.layer == 7)
+        {
+            AddReward(-1f);
+            Debug.Log("wall touched");
+        }
+        else if (other.CompareTag("End CheckPoint"))
+        {
+            AddReward(+5f);
+            EndEpisode();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Car"))
+        {
+            AddReward(-1f);
+            Debug.Log("car touched");
+        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 7)
+        {
+            AddReward(-0.1f);
+        }
+        if (collision.transform.CompareTag("Car"))
         {
             AddReward(-0.1f);
         }

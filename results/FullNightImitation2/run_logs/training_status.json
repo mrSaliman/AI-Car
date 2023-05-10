@@ -1,0 +1,65 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 2499936,
+                "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-2499936.onnx",
+                "reward": null,
+                "creation_time": 1683586638.507628,
+                "auxillary_file_paths": [
+                    "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-2499936.pt"
+                ]
+            },
+            {
+                "steps": 2999968,
+                "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-2999968.onnx",
+                "reward": null,
+                "creation_time": 1683588003.9698374,
+                "auxillary_file_paths": [
+                    "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-2999968.pt"
+                ]
+            },
+            {
+                "steps": 3066400,
+                "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.onnx",
+                "reward": null,
+                "creation_time": 1683588200.408018,
+                "auxillary_file_paths": [
+                    "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.pt"
+                ]
+            },
+            {
+                "steps": 3066400,
+                "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.onnx",
+                "reward": null,
+                "creation_time": 1683588327.5869422,
+                "auxillary_file_paths": [
+                    "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.pt"
+                ]
+            },
+            {
+                "steps": 3066400,
+                "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.onnx",
+                "reward": null,
+                "creation_time": 1683588480.959382,
+                "auxillary_file_paths": [
+                    "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3066400,
+            "file_path": "results\\FullNightImitation2\\MoveThroughCheckpoints.onnx",
+            "reward": null,
+            "creation_time": 1683588480.959382,
+            "auxillary_file_paths": [
+                "results\\FullNightImitation2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-3066400.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

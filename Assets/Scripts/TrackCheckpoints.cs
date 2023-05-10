@@ -71,6 +71,11 @@ public class TrackCheckpoints : MonoBehaviour
         nextCheckPointSingleIndexList[carTransformList.IndexOf(car)] = 0;
     }
 
+    public CheckPointSingle GetNextCheckpoint(Transform car)
+    {
+        return checkPointSingleList[nextCheckPointSingleIndexList[carTransformList.IndexOf(car)]];
+    }
+
     public class CarCheckpointEventArgs : EventArgs
     {
         public Transform carTransform;

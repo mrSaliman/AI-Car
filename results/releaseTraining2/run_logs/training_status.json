@@ -1,0 +1,47 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-0.onnx",
+                "reward": null,
+                "creation_time": 1683740512.7990227,
+                "auxillary_file_paths": [
+                    "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-0.pt"
+                ]
+            },
+            {
+                "steps": 499952,
+                "file_path": "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499952.onnx",
+                "reward": null,
+                "creation_time": 1683741551.2417223,
+                "auxillary_file_paths": [
+                    "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499952.pt"
+                ]
+            },
+            {
+                "steps": 644592,
+                "file_path": "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-644592.onnx",
+                "reward": null,
+                "creation_time": 1683741879.02115,
+                "auxillary_file_paths": [
+                    "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-644592.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 644592,
+            "file_path": "results\\releaseTraining2\\MoveThroughCheckpoints.onnx",
+            "reward": null,
+            "creation_time": 1683741879.02115,
+            "auxillary_file_paths": [
+                "results\\releaseTraining2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-644592.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

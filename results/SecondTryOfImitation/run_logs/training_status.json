@@ -1,0 +1,56 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 499953,
+                "file_path": "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499953.onnx",
+                "reward": -9.667294094959894,
+                "creation_time": 1683573441.9284534,
+                "auxillary_file_paths": [
+                    "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-499953.pt"
+                ]
+            },
+            {
+                "steps": 755287,
+                "file_path": "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-755287.onnx",
+                "reward": 1.835000365972519,
+                "creation_time": 1683574440.5287383,
+                "auxillary_file_paths": [
+                    "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-755287.pt"
+                ]
+            },
+            {
+                "steps": 999957,
+                "file_path": "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-999957.onnx",
+                "reward": -1.894999973475933,
+                "creation_time": 1683576013.058007,
+                "auxillary_file_paths": [
+                    "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-999957.pt"
+                ]
+            },
+            {
+                "steps": 1489261,
+                "file_path": "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1489261.onnx",
+                "reward": -6.499999105930328,
+                "creation_time": 1683577815.739263,
+                "auxillary_file_paths": [
+                    "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1489261.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1489261,
+            "file_path": "results\\SecondTryOfImitation\\MoveThroughCheckpoints.onnx",
+            "reward": -6.499999105930328,
+            "creation_time": 1683577815.739263,
+            "auxillary_file_paths": [
+                "results\\SecondTryOfImitation\\MoveThroughCheckpoints\\MoveThroughCheckpoints-1489261.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

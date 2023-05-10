@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: -2605465794394013772}
   - component: {fileID: 5492431839098545099}
   - component: {fileID: -8334229051571815544}
+  - component: {fileID: 701483830926518741}
   m_Layer: 0
   m_Name: sport_car_1_custom 1
   m_TagString: Car
@@ -1125,7 +1126,6 @@ MonoBehaviour:
   rearRightWheelTransform: {fileID: 8032962852117809726}
   rb: {fileID: 86735419192940717}
   mr: {fileID: 8032962852115570360}
-  nextCheckPointSingleIndex: 0
 --- !u!114 &998244368925689658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 3
+    VectorObservationSize: 2
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -1175,7 +1175,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: MoveThroughCheckpoints
   TeamId: 0
   m_UseChildSensors: 1
@@ -1241,6 +1241,22 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!114 &701483830926518741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032962852117556514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: FullCourseDemo
+  DemonstrationDirectory: 
 --- !u!1 &8032962852117557998
 GameObject:
   m_ObjectHideFlags: 0

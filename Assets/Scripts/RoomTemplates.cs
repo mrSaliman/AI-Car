@@ -17,6 +17,9 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> roads;
     public Vector3 tileScale;
 
+    [SerializeField] private float numberOfCars;
+    [SerializeField] private float spacing;
+
     [HideInInspector] public bool IsGenerationDone;
     [HideInInspector] public bool CarsAreSet;
     private int roadsCount = 0;
@@ -101,7 +104,9 @@ public class RoomTemplates : MonoBehaviour
             yield return null;
         Debug.Log("Spawning Cars...");
 
-        for (var p = -4; p < 5; p += 2)
+        var distance = (numberOfCars - 1) * spacing;
+
+        for (var p = -distance / 2f; p <= distance/2; p += spacing)
         {
             float x = 0f;
             float z = 0f;

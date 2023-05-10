@@ -1,0 +1,65 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 11999968,
+                "file_path": "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-11999968.onnx",
+                "reward": null,
+                "creation_time": 1683690137.293121,
+                "auxillary_file_paths": [
+                    "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-11999968.pt"
+                ]
+            },
+            {
+                "steps": 12499936,
+                "file_path": "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-12499936.onnx",
+                "reward": null,
+                "creation_time": 1683691162.7123199,
+                "auxillary_file_paths": [
+                    "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-12499936.pt"
+                ]
+            },
+            {
+                "steps": 12999968,
+                "file_path": "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-12999968.onnx",
+                "reward": -7.499999135732651,
+                "creation_time": 1683692190.2347085,
+                "auxillary_file_paths": [
+                    "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-12999968.pt"
+                ]
+            },
+            {
+                "steps": 13499972,
+                "file_path": "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-13499972.onnx",
+                "reward": -7.499999135732651,
+                "creation_time": 1683693214.9147618,
+                "auxillary_file_paths": [
+                    "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-13499972.pt"
+                ]
+            },
+            {
+                "steps": 13923216,
+                "file_path": "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-13923216.onnx",
+                "reward": null,
+                "creation_time": 1683694104.3687203,
+                "auxillary_file_paths": [
+                    "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-13923216.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 13923216,
+            "file_path": "results\\AllNight2\\MoveThroughCheckpoints.onnx",
+            "reward": null,
+            "creation_time": 1683694104.3687203,
+            "auxillary_file_paths": [
+                "results\\AllNight2\\MoveThroughCheckpoints\\MoveThroughCheckpoints-13923216.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

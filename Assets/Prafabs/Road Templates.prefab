@@ -100,7 +100,10 @@ MonoBehaviour:
   car: {fileID: 8032962852117556514, guid: 52fcccd0d3bd0704887bc96f01ef8c45, type: 3}
   roads: []
   tileScale: {x: 3, y: 1, z: 3}
+  numberOfCars: 4
+  spacing: 3
   IsGenerationDone: 0
+  CarsAreSet: 0
 --- !u!114 &-6858587066353868348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 4014818649330357937, guid: c973ba5395654b14ca83e6456b0ca83f, type: 3}
-  spacing: 5
+  spacing: 10
   AreCheckpointsReady: 0
 --- !u!1 &3635102929376326707
 GameObject:

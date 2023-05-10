@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1683544551",
+        "python_version": "3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Study\\Unity Projects\\Repeatments\\AI Car\\venv\\Scripts\\mlagents-learn newConfig.yaml --run-id=PatrlyTraining --resume --time-scale=1",
+        "mlagents_version": "0.29.0",
+        "mlagents_envs_version": "0.29.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cpu",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1683544582"
+    },
+    "total": 30.630923099999997,
+    "count": 1,
+    "self": 0.008197999999996597,
+    "children": {
+        "run_training.setup": {
+            "total": 0.12499490000000013,
+            "count": 1,
+            "self": 0.12499490000000013
+        },
+        "TrainerController.start_learning": {
+            "total": 30.4977302,
+            "count": 1,
+            "self": 0.0004174999999975171,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 30.4972902,
+                    "count": 1,
+                    "self": 30.4972902
+                },
+                "trainer_threads": {
+                    "total": 1.4000000021496817e-06,
+                    "count": 1,
+                    "self": 1.4000000021496817e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 2.1100000001439412e-05,
+                    "count": 1,
+                    "self": 2.1100000001439412e-05
+                }
+            }
+        }
+    }
+}
