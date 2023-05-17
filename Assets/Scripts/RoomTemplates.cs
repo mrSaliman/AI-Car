@@ -119,7 +119,7 @@ public class RoomTemplates : MonoBehaviour
             //newCar.name = "Car " + p;
             //newCar.GetComponent<Rigidbody>().position = new Vector3(x, 0.2f, z);
             //newCar.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, rotation, 0);
-            newCar.transform.SetPositionAndRotation(new Vector3(x, 0.2f, z) + transform.position, Quaternion.Euler(0, rotation, 0));
+            newCar.transform.SetLocalPositionAndRotation(new Vector3(x, 0.2f, z), Quaternion.Euler(0, rotation, 0));
             //Debug.Log("Set pos for " + newCar.name + " pos " + newCar.transform.position);
         }
 

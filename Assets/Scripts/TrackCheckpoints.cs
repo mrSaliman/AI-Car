@@ -9,6 +9,7 @@ public class TrackCheckpoints : MonoBehaviour
     public event EventHandler<CarCheckpointEventArgs> OnCarWrongCheckpoint;
 
     [HideInInspector] public bool CheckpointsAreSet;
+    [HideInInspector] public bool CarsAttached;
 
     private GenerateCheckPoints generator;
     private RoomTemplates roomTemplates;
@@ -19,6 +20,7 @@ public class TrackCheckpoints : MonoBehaviour
     private IEnumerator Start()
     {
         CheckpointsAreSet = false;
+        CarsAttached = false;
         checkPointSingleList = new List<CheckPointSingle>();
         carTransformList = new List<Transform>();
         nextCheckPointSingleIndexList = new List<int>();
@@ -49,6 +51,8 @@ public class TrackCheckpoints : MonoBehaviour
             carTransformList.Add(car);
             nextCheckPointSingleIndexList.Add(0);
         }
+
+        CarsAttached = true;
     }
 
     public void CarThroughCheckpoint(CheckPointSingle checkpoint, Transform carTransform)
@@ -68,11 +72,13 @@ public class TrackCheckpoints : MonoBehaviour
 
     public void ResetCheckpoints(Transform car)
     {
+        if (!CarsAttached) return;
         nextCheckPointSingleIndexList[carTransformList.IndexOf(car)] = 0;
     }
 
     public CheckPointSingle GetNextCheckpoint(Transform car)
     {
+        if (!CarsAttached) return null;
         return checkPointSingleList[nextCheckPointSingleIndexList[carTransformList.IndexOf(car)]];
     }
 

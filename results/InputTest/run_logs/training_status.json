@@ -1,0 +1,29 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 256,
+                "file_path": "results\\InputTest\\MoveThroughCheckpoints\\MoveThroughCheckpoints-256.onnx",
+                "reward": null,
+                "creation_time": 1683878107.4902284,
+                "auxillary_file_paths": [
+                    "results\\InputTest\\MoveThroughCheckpoints\\MoveThroughCheckpoints-256.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 256,
+            "file_path": "results\\InputTest\\MoveThroughCheckpoints.onnx",
+            "reward": null,
+            "creation_time": 1683878107.4902284,
+            "auxillary_file_paths": [
+                "results\\InputTest\\MoveThroughCheckpoints\\MoveThroughCheckpoints-256.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

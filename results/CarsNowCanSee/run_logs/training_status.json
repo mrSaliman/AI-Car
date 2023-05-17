@@ -1,0 +1,65 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 5999996,
+                "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5999996.onnx",
+                "reward": null,
+                "creation_time": 1683943252.7490692,
+                "auxillary_file_paths": [
+                    "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5999996.pt"
+                ]
+            },
+            {
+                "steps": 6499964,
+                "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6499964.onnx",
+                "reward": null,
+                "creation_time": 1683944080.8482468,
+                "auxillary_file_paths": [
+                    "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6499964.pt"
+                ]
+            },
+            {
+                "steps": 6999996,
+                "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6999996.onnx",
+                "reward": 38.32924474899968,
+                "creation_time": 1683944911.4651499,
+                "auxillary_file_paths": [
+                    "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6999996.pt"
+                ]
+            },
+            {
+                "steps": 7499948,
+                "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7499948.onnx",
+                "reward": null,
+                "creation_time": 1683945743.8419344,
+                "auxillary_file_paths": [
+                    "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7499948.pt"
+                ]
+            },
+            {
+                "steps": 7953868,
+                "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7953868.onnx",
+                "reward": 40.04324342558781,
+                "creation_time": 1683946506.8441677,
+                "auxillary_file_paths": [
+                    "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7953868.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 7953868,
+            "file_path": "results\\CarsNowCanSee\\MoveThroughCheckpoints.onnx",
+            "reward": 40.04324342558781,
+            "creation_time": 1683946506.8441677,
+            "auxillary_file_paths": [
+                "results\\CarsNowCanSee\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7953868.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

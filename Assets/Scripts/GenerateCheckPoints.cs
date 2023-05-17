@@ -5,13 +5,11 @@ using UnityEngine;
 public class GenerateCheckPoints : MonoBehaviour
 {
     public GameObject objectPrefab;
-    public float spacing;
+    public int checkpointsPerSegment = 5;
 
     [HideInInspector] public bool AreCheckpointsReady;
 
-    private int numObjects;
     private List<Vector3> pathPoints;
-    private float pathLength;
     private RoomTemplates roomTemplates;
     private Transform parentTransform;
 
@@ -31,125 +29,72 @@ public class GenerateCheckPoints : MonoBehaviour
         {
             pathPoints.Add(t.position);
         }
-        pathLength = CalculatePathLength();
-        numObjects = Mathf.FloorToInt(pathLength / spacing);
         GenerateObjects();
-    }
-
-    private float CalculatePathLength()
-    {
-        float length = 0;
-        for (int i = 0; i < pathPoints.Count - 1; i++)
-        {
-            length += Vector3.Distance(pathPoints[i], pathPoints[i + 1]);
-        }
-        return length;
     }
 
     private void GenerateObjects()
     {
-        float spacingInterval = pathLength / (numObjects - 1);
-        float distanceAlongPath = spacingInterval;
         GameObject last = null;
 
-        for (int i = 1; i < numObjects; i++)
+        //adjust start checkpoints
+        Vector3 p0 = pathPoints[0];
+        Vector3 p2 = (pathPoints[1] + pathPoints[0]) / 2;
+        Vector3 p1 = (p0 + p2) / 2;
+
+        for (int j = 1; j < checkpointsPerSegment / 2; j++)
         {
-            Vector3 position = GetPositionOnPath(distanceAlongPath);
-            Quaternion rotation = GetRotationOnPath(distanceAlongPath);
-            last = Instantiate(objectPrefab, position + objectPrefab.transform.position, rotation, parentTransform);
-            distanceAlongPath += spacingInterval;
+            float t = (float)j / (checkpointsPerSegment / 2);
+            Vector3 checkpointPosition = BezierCurve(p0, p1, p2, t);
+            Vector3 tangent = BezierCurveTangent(p0, p1, p2, t);
+            Quaternion rotation = Quaternion.LookRotation(tangent);
+            Instantiate(objectPrefab, checkpointPosition + objectPrefab.transform.position, rotation, parentTransform);
+        }
+
+        for (int i = 0; i < pathPoints.Count - 2; i++)
+        {
+            p1 = pathPoints[i + 1];
+            p0 = (pathPoints[i] + p1) / 2;
+            p2 = (pathPoints[i + 2] + p1) / 2;
+
+            for (int j = 0; j < checkpointsPerSegment; j++)
+            {
+                float t = (float)j / checkpointsPerSegment;
+                Vector3 checkpointPosition = BezierCurve(p0, p1, p2, t);
+                Vector3 tangent = BezierCurveTangent(p0, p1, p2, t);
+                Quaternion rotation = Quaternion.LookRotation(tangent);
+                Instantiate(objectPrefab, checkpointPosition + objectPrefab.transform.position, rotation, parentTransform);
+            }
+        }
+
+        p0 = pathPoints[^2];
+        p2 = pathPoints[^1];
+        p1 = (p0 + p2) / 2;
+
+        for (int j = checkpointsPerSegment / 2; j <= checkpointsPerSegment; j++)
+        {
+            float t = (float)j / checkpointsPerSegment;
+            Vector3 checkpointPosition = BezierCurve(p0, p1, p2, t);
+            Vector3 tangent = BezierCurveTangent(p0, p1, p2, t);
+            Quaternion rotation = Quaternion.LookRotation(tangent);
+            last = Instantiate(objectPrefab, checkpointPosition + objectPrefab.transform.position, rotation, parentTransform);
         }
 
         last.tag = "End CheckPoint";
         AreCheckpointsReady = true;
     }
 
-    private Vector3 GetPositionOnPath(float distanceAlongPath)
+    public static Vector3 BezierCurve(Vector3 p0, Vector3 p1, Vector3 p2, float t)
     {
-        return GetLinearlyInterpolatedPoint(distanceAlongPath);
+        Vector3 a = Vector3.Lerp(p0, p1, t);
+        Vector3 b = p1;
+        Vector3 c = Vector3.Lerp(p1, p2, t);
+        Vector3 d = Vector3.Lerp(a, b, t);
+        Vector3 e = Vector3.Lerp(b, c, t);
+        return Vector3.Lerp(d, e, t);
     }
 
-    private Vector3 GetLinearlyInterpolatedPoint(float distanceAlongPath)
+    public static Vector3 BezierCurveTangent(Vector3 p0, Vector3 p1, Vector3 p2, float t)
     {
-        float distance = 0;
-        for (int i = 0; i < pathPoints.Count - 1; i++)
-        {
-            Vector3 pointA = pathPoints[i];
-            Vector3 pointB = pathPoints[i + 1];
-            float segmentLength = Vector3.Distance(pointA, pointB);
-            if (distance + segmentLength >= distanceAlongPath)
-            {
-                float t = (distanceAlongPath - distance) / segmentLength;
-                return Vector3.Lerp(pointA, pointB, t);
-            }
-            distance += segmentLength;
-        }
-        return pathPoints[^1];
+        return 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
     }
-
-    private Quaternion GetRotationOnPath(float distanceAlongPath)
-    {
-        Vector3 forwardVector;
-        forwardVector = GetCatmullRomInterpolatedForwardVector(distanceAlongPath);
-        
-        return Quaternion.LookRotation(forwardVector);
-    }
-
-    private Vector3 GetCatmullRomInterpolatedForwardVector(float distanceAlongPath)
-    {
-        float totalDistance = 0;
-        List<float> distances = new()
-        {
-            0
-        };
-        for (int i = 0; i < pathPoints.Count - 1; i++)
-        {
-            float segmentLength = Vector3.Distance(pathPoints[i], pathPoints[i + 1]);
-            totalDistance += segmentLength;
-            distances.Add(totalDistance);
-        }
-        distances.Add(totalDistance);
-
-        int currentIndex = 0;
-        for (int i = 0; i < distances.Count - 1; i++)
-        {
-            if (distanceAlongPath >= distances[i] && distanceAlongPath < distances[i + 1])
-            {
-                currentIndex = i;
-                break;
-            }
-        }
-
-        float t = (distanceAlongPath - distances[currentIndex]) / (distances[currentIndex + 1] - distances[currentIndex]);
-        Vector3[] points = new Vector3[4];
-        int indexOffset = -1;
-        for (int i = 0; i < 4; i++)
-        {
-            int index = currentIndex + indexOffset;
-            if (index < 0)
-            {
-                index = 0;
-            }
-            else if (index >= pathPoints.Count)
-            {
-                index = pathPoints.Count - 1;
-            }
-            points[i] = pathPoints[index];
-            indexOffset++;
-        }
-
-        Vector3 forwardVector = GetCatmullRomInterpolatedTangentVector(points[0], points[1], points[2], points[3], t);
-        return forwardVector;
-    }
-
-    private Vector3 GetCatmullRomInterpolatedTangentVector(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
-    {
-        float t2 = t * t;
-
-        Vector3 tangentVector = 0.5f * ((-p0 + p2) +
-                                        (2f * p0 - 5f * p1 + 4f * p2 - p3) * t +
-                                        (-p0 + 3f * p1 - 3f * p2 + p3) * t2);
-        return tangentVector.normalized;
-    }
-
 }

@@ -1,0 +1,65 @@
+{
+    "MoveThroughCheckpoints": {
+        "checkpoints": [
+            {
+                "steps": 5499997,
+                "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5499997.onnx",
+                "reward": null,
+                "creation_time": 1683929753.386354,
+                "auxillary_file_paths": [
+                    "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5499997.pt"
+                ]
+            },
+            {
+                "steps": 5999965,
+                "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5999965.onnx",
+                "reward": null,
+                "creation_time": 1683930923.551713,
+                "auxillary_file_paths": [
+                    "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-5999965.pt"
+                ]
+            },
+            {
+                "steps": 6499997,
+                "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6499997.onnx",
+                "reward": -76.9355414385597,
+                "creation_time": 1683931951.6982293,
+                "auxillary_file_paths": [
+                    "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6499997.pt"
+                ]
+            },
+            {
+                "steps": 6999965,
+                "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6999965.onnx",
+                "reward": null,
+                "creation_time": 1683932988.9684353,
+                "auxillary_file_paths": [
+                    "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-6999965.pt"
+                ]
+            },
+            {
+                "steps": 7110525,
+                "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7110525.onnx",
+                "reward": -99.74842648891111,
+                "creation_time": 1683933303.1270826,
+                "auxillary_file_paths": [
+                    "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7110525.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 7110525,
+            "file_path": "results\\LearnAfterFixes\\MoveThroughCheckpoints.onnx",
+            "reward": -99.74842648891111,
+            "creation_time": 1683933303.1270826,
+            "auxillary_file_paths": [
+                "results\\LearnAfterFixes\\MoveThroughCheckpoints\\MoveThroughCheckpoints-7110525.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

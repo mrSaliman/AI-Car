@@ -44,8 +44,8 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
     }
 
     private void FixedUpdate()
