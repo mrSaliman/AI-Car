@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
@@ -13,22 +9,31 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] leftRoads;
     public GameObject[] rightRoads;
     public GameObject car;
+    public GameObject player;
+    public GameObject enemy;
+    public bool isTraining;
 
     public List<GameObject> roads;
     public Vector3 tileScale;
 
-    [SerializeField] private float numberOfCars;
+    [SerializeField] private int numberOfCars;
     [SerializeField] private float spacing;
 
     [HideInInspector] public bool IsGenerationDone;
     [HideInInspector] public bool CarsAreSet;
     private int roadsCount = 0;
     private TrackCheckpoints trackCheckpoints;
+    private MapLoader mapLoader;
 
 
     private void Start()
     {
+        GameObject.FindGameObjectWithTag("LoadSceneCamera").GetComponent<Camera>().enabled = true;
+        GameObject.Find("Main Camera").GetComponent<Camera>().enabled = false;
+
         trackCheckpoints = GetComponent<TrackCheckpoints>();
+        mapLoader = transform.parent.GetComponent<MapLoader>();
+        numberOfCars = mapLoader.enemies + 1;
         IsGenerationDone = false;
         CarsAreSet = false;
         InvokeRepeating(nameof(EndSpawning), 0f, 0.1f);
@@ -102,32 +107,49 @@ public class RoomTemplates : MonoBehaviour
 
         while (!trackCheckpoints.CheckpointsAreSet)
             yield return null;
-        Debug.Log("Spawning Cars...");
 
-        var distance = (numberOfCars - 1) * spacing;
 
-        for (var p = -distance / 2f; p <= distance/2; p += spacing)
+        float distance = (numberOfCars - 1) * spacing;
+        float startSpawn = -distance / 2f;
+        int playerPosition = Random.Range(0, numberOfCars);
+
+        for (int p = 0; p < numberOfCars; p += 1)
         {
             float x = 0f;
             float z = 0f;
             if (rotation < 1f || (rotation > 179f && rotation < 181f))
-                x = p;
+                x = startSpawn + p * spacing;
             else 
-                z = p;
+                z = startSpawn + p * spacing;
 
-            GameObject newCar = Instantiate(car, newParent);
-            //newCar.name = "Car " + p;
-            //newCar.GetComponent<Rigidbody>().position = new Vector3(x, 0.2f, z);
-            //newCar.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, rotation, 0);
+            GameObject newCar;
+            if (isTraining)
+            {
+                newCar = Instantiate(car, newParent);
+            }
+            else if (p == playerPosition)
+            {
+                newCar = Instantiate(player, newParent);
+            }
+            else
+            {
+                newCar = Instantiate(enemy, newParent);
+            }
             newCar.transform.SetLocalPositionAndRotation(new Vector3(x, 0.2f, z), Quaternion.Euler(0, rotation, 0));
-            //Debug.Log("Set pos for " + newCar.name + " pos " + newCar.transform.position);
         }
 
         CarsAreSet = true;
+
+        mapLoader.PauseGame(10f);
+        while (mapLoader.deltaTime > 0)
+            yield return null;
+
+        mapLoader.ResumeGame();
     }
 
     private void SetCameras()
     {
         GameObject.FindGameObjectWithTag("LoadSceneCamera").GetComponent<Camera>().enabled = false;
+        GameObject.Find("Main Camera").GetComponent<Camera>().enabled = true;
     }
 }

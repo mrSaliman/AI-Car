@@ -12,16 +12,17 @@ public class GenerateCheckPoints : MonoBehaviour
     private List<Vector3> pathPoints;
     private RoomTemplates roomTemplates;
     private Transform parentTransform;
+    private MapLoader mapLoader;
 
     private IEnumerator Start()
     {
         AreCheckpointsReady = false;
         roomTemplates = GetComponent<RoomTemplates>();
         parentTransform = transform.Find("CheckPoints");
+        mapLoader = transform.parent.GetComponent<MapLoader>();
 
         while (!roomTemplates.IsGenerationDone)
             yield return null;
-        Debug.Log("Generating checkpoints...");
 
         pathPoints = new List<Vector3>();
         var rightWay = roomTemplates.GetRightWay();
@@ -36,7 +37,6 @@ public class GenerateCheckPoints : MonoBehaviour
     {
         GameObject last = null;
 
-        //adjust start checkpoints
         Vector3 p0 = pathPoints[0];
         Vector3 p2 = (pathPoints[1] + pathPoints[0]) / 2;
         Vector3 p1 = (p0 + p2) / 2;
@@ -80,6 +80,8 @@ public class GenerateCheckPoints : MonoBehaviour
         }
 
         last.tag = "End CheckPoint";
+        var carFinished = last.AddComponent<CarFinished>();
+        carFinished.mapLoader = mapLoader;
         AreCheckpointsReady = true;
     }
 

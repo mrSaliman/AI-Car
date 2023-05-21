@@ -17,6 +17,7 @@ TagManager:
   - LoadSceneCamera
   - SpeedInfo
   - End CheckPoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -31,7 +31,6 @@ public class TrackCheckpoints : MonoBehaviour
 
         while (!generator.AreCheckpointsReady)
             yield return null;
-        Debug.Log("Setting checkpoints...");
 
         foreach (Transform checkpoint in checkpointsTransform)
         {
@@ -44,7 +43,6 @@ public class TrackCheckpoints : MonoBehaviour
 
         while (!roomTemplates.CarsAreSet)
             yield return null;
-        Debug.Log("Attaching cars to checkpoint system...");
 
         foreach (Transform car in carTransform)
         {

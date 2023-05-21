@@ -98,6 +98,9 @@ MonoBehaviour:
   - {fileID: 133723679826963381, guid: b8391e940b7d2b8489f0f6c294cd9cfd, type: 3}
   - {fileID: 133723679826963381, guid: b8391e940b7d2b8489f0f6c294cd9cfd, type: 3}
   car: {fileID: 8032962852117556514, guid: 52fcccd0d3bd0704887bc96f01ef8c45, type: 3}
+  player: {fileID: 8563129661475683548, guid: bc8a98e1447068040a4540ff557ecced, type: 3}
+  enemy: {fileID: 4714879796436995671, guid: b1474e3bffa474d4f9b75d56acdda583, type: 3}
+  isTraining: 0
   roads: []
   tileScale: {x: 3, y: 1, z: 3}
   numberOfCars: 4
@@ -131,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 4014818649330357937, guid: c973ba5395654b14ca83e6456b0ca83f, type: 3}
-  spacing: 10
+  checkpointsPerSegment: 5
   AreCheckpointsReady: 0
 --- !u!1 &3635102929376326707
 GameObject:

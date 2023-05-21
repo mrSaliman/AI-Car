@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using System;
 
 public class MoveThroughCheckpointsAgent : Agent
 {
@@ -13,8 +10,6 @@ public class MoveThroughCheckpointsAgent : Agent
     private CarController carController;
     private int stopTime;
     private readonly float speedEpsilon = 20f;
-    /*private int Batch = 0;
-    private Vector2 nextBatchVector = Vector2.zero, curentBatchVector = Vector2.zero;*/
 
     private void Awake()
     {
@@ -33,7 +28,6 @@ public class MoveThroughCheckpointsAgent : Agent
         if (e.carTransform == transform)
         {
             AddReward(-1f);
-            //Debug.Log("wrong");
         }
     }
 
@@ -42,7 +36,6 @@ public class MoveThroughCheckpointsAgent : Agent
         if (e.carTransform == transform)
         {
             AddReward(+2f);
-            //Debug.Log("correct");
         }
     }
 
@@ -82,19 +75,7 @@ public class MoveThroughCheckpointsAgent : Agent
         float horizontalInput = actions.ContinuousActions[1];
         bool isBreaking = actions.DiscreteActions[0] != 0;
 
-        /*if (Batch < 5)
-        {
-            nextBatchVector += new Vector2(verticalInput, horizontalInput);
-            Batch++;
-        }
-        else 
-        {
-            Batch = 0;
-            curentBatchVector = nextBatchVector / 5;
-            nextBatchVector = Vector2.zero;
-        }*/
         carController.SetInput(horizontalInput, verticalInput, isBreaking); 
-        //Debug.Log(curentBatchVector[0] + " : " + curentBatchVector[1]);
 
         if (rigidbody.velocity.magnitude * 3.6f < speedEpsilon)
         {
@@ -104,15 +85,10 @@ public class MoveThroughCheckpointsAgent : Agent
             stopTime = 0;
         }
 
-        //Debug.Log(verticalInput);
         if (verticalInput <= 0 || isBreaking)
         {
             AddReward(-0.00001f * stopTime * stopTime * Time.fixedDeltaTime);
         }
-
-        //Debug.Log(-0.00001f * stopTime * stopTime * Time.fixedDeltaTime);
-
-        //Debug.Log(GetCumulativeReward());
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -129,13 +105,10 @@ public class MoveThroughCheckpointsAgent : Agent
         if (other.gameObject.layer == 7)
         {
             AddReward(-2f);
-            //Debug.Log("wall touched");
         }
         else if (other.CompareTag("End CheckPoint"))
         {
             AddReward(+5f);
-            //Debug.Log("End");
-            ResetCar();
         }
     }
 
@@ -144,7 +117,6 @@ public class MoveThroughCheckpointsAgent : Agent
         if (collision.transform.CompareTag("Car"))
         {
             AddReward(-2f);
-            //Debug.Log("car touched");
         }
     }
 
@@ -154,13 +126,11 @@ public class MoveThroughCheckpointsAgent : Agent
         {
             AddReward(-0.2f * Time.deltaTime);
             AddReward(-0.00001f * stopTime * stopTime * Time.fixedDeltaTime);
-            //Debug.Log("wall Stay");
         }
         if (collision.transform.CompareTag("Car"))
         {
             AddReward(-0.2f * Time.deltaTime);
             AddReward(-0.00001f * stopTime * stopTime * Time.fixedDeltaTime);
-            //Debug.Log("Car Stay");
         }
     }
 }

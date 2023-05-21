@@ -11,9 +11,10 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private float currentbreakForce;
     private bool isBreaking;
+    public bool isPlayer;
 
-    public Vector3 startPosition;
-    public Quaternion startRotation;
+    [HideInInspector] public Vector3 startPosition;
+    [HideInInspector] public Quaternion startRotation;
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -46,6 +47,11 @@ public class CarController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = transform.localPosition;
         startRotation = transform.localRotation;
+    }
+
+    private void Update()
+    {
+        if (isPlayer) GetInput();
     }
 
     private void FixedUpdate()
